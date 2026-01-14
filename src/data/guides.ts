@@ -76,7 +76,7 @@ export const guides: Guide[] = [
       {
         question: 'How do I invoice international clients?',
         answer:
-          'For international invoicing, include SWIFT/IBAN banking details for wire transfers. PayPal and Stripe handle multi-currency payments automatically. Know the VAT rules: many countries require invoicing non-residents without VAT. Include your tax ID and specify whether prices are inclusive or exclusive of taxes. Research the specific country's invoicing requirements.',
+          'For international invoicing, include SWIFT/IBAN banking details for wire transfers. PayPal and Stripe handle multi-currency payments automatically. Know the VAT rules: many countries require invoicing non-residents without VAT. Include your tax ID and specify whether prices are inclusive or exclusive of taxes. Research the specific country\'s invoicing requirements.',
       },
       {
         question: 'Should I invoice for time spent in meetings?',
