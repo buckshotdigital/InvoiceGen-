@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import { ArticleSchema } from '@/components/schema/ArticleSchema';
+import { BreadcrumbSchema } from '@/components/schema/BreadcrumbSchema';
 
 export const metadata: Metadata = {
   title: 'Best Practices for Getting Paid Faster | InvoiceGen',
@@ -21,6 +23,19 @@ export const metadata: Metadata = {
 export default function GetPaidFasterPage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <ArticleSchema
+        title="Best Practices for Getting Paid Faster"
+        description="Practical tips to reduce payment delays. Learn about payment terms, follow-up strategies, and invoice best practices that help you get paid on time."
+        publishedDate="2026-01-11"
+        modifiedDate="2026-01-11"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://invoice-gen-two-rho.vercel.app" },
+          { name: "Blog", url: "https://invoice-gen-two-rho.vercel.app/blog" },
+          { name: "Best Practices for Getting Paid Faster", url: "https://invoice-gen-two-rho.vercel.app/blog/best-practices-for-getting-paid-faster" },
+        ]}
+      />
       <Header />
 
       <main className="max-w-3xl mx-auto px-4 py-16">

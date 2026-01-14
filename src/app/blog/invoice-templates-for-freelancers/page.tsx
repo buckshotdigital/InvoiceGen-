@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import { ArticleSchema } from '@/components/schema/ArticleSchema';
+import { BreadcrumbSchema } from '@/components/schema/BreadcrumbSchema';
 
 export const metadata: Metadata = {
   title: 'Invoice Templates for Freelancers: Hourly, Project & Retainer | InvoiceGen',
@@ -21,6 +23,19 @@ export const metadata: Metadata = {
 export default function InvoiceTemplatesFreelancersPage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <ArticleSchema
+        title="Invoice Templates for Freelancers: Hourly, Project & Retainer"
+        description="Free invoice templates for freelancers. Learn which invoice format to use for hourly work, fixed projects, retainers, and milestone billing."
+        publishedDate="2026-01-12"
+        modifiedDate="2026-01-12"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://invoice-gen-two-rho.vercel.app" },
+          { name: "Blog", url: "https://invoice-gen-two-rho.vercel.app/blog" },
+          { name: "Invoice Templates for Freelancers", url: "https://invoice-gen-two-rho.vercel.app/blog/invoice-templates-for-freelancers" },
+        ]}
+      />
       <Header />
 
       <main className="max-w-3xl mx-auto px-4 py-16">

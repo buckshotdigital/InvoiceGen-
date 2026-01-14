@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import { ArticleSchema } from '@/components/schema/ArticleSchema';
+import { BreadcrumbSchema } from '@/components/schema/BreadcrumbSchema';
 
 export const metadata: Metadata = {
   title: 'How to Create a Professional Invoice (Complete Guide) | InvoiceGen',
@@ -21,6 +23,19 @@ export const metadata: Metadata = {
 export default function HowToCreateInvoicePage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <ArticleSchema
+        title="How to Create a Professional Invoice (Complete Guide)"
+        description="Learn how to create professional invoices step-by-step. Includes what to include, common mistakes to avoid, and free templates."
+        publishedDate="2026-01-13"
+        modifiedDate="2026-01-13"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://invoice-gen-two-rho.vercel.app" },
+          { name: "Blog", url: "https://invoice-gen-two-rho.vercel.app/blog" },
+          { name: "How to Create a Professional Invoice", url: "https://invoice-gen-two-rho.vercel.app/blog/how-to-create-a-professional-invoice" },
+        ]}
+      />
       <Header />
 
       <main className="max-w-3xl mx-auto px-4 py-16">
