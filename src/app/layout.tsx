@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     description: 'Create beautiful, professional invoices in seconds.',
     type: 'website',
   },
+  verification: {
+    google: 'XUC0kAyql3EE_w-JCYc1p3kikwYcfPCasNlsmD8jH4w',
+  },
 };
 
 export default function RootLayout({
