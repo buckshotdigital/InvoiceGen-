@@ -39,9 +39,18 @@ export default function SettingsPage() {
       try {
         const settings = await fetchSettings();
         if (settings) {
+          // Auto-populate business name from user's name/email if not set
+          const defaultBusinessName = settings.defaultFromName ||
+            user?.user_metadata?.full_name ||
+            user?.user_metadata?.name ||
+            (user?.email ? user.email.split('@')[0] : '');
+
+          // Auto-populate email from user's email if not set
+          const defaultEmail = settings.defaultFromEmail || user?.email || '';
+
           setFormData({
-            defaultFromName: settings.defaultFromName || '',
-            defaultFromEmail: settings.defaultFromEmail || '',
+            defaultFromName: defaultBusinessName,
+            defaultFromEmail: defaultEmail,
             defaultFromAddress: settings.defaultFromAddress || '',
             defaultFromPhone: settings.defaultFromPhone || '',
             defaultCurrency: settings.defaultCurrency || 'USD',
@@ -189,6 +198,9 @@ export default function SettingsPage() {
                       placeholder="Your Business Name"
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
                     />
+                    <p className="mt-1 text-xs text-gray-500">
+                      This name appears on your invoices and email reminders (e.g., "From: {formData.defaultFromName || 'Your Business'}")
+                    </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -202,6 +214,9 @@ export default function SettingsPage() {
                         placeholder="you@example.com"
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
                       />
+                      <p className="mt-1 text-xs text-gray-500">
+                        Client replies to reminders go to this email
+                      </p>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
