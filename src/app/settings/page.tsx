@@ -26,6 +26,7 @@ export default function SettingsPage() {
   });
 
   const [showResendGuide, setShowResendGuide] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
 
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(false);
@@ -48,6 +49,7 @@ export default function SettingsPage() {
             defaultAccentColor: settings.defaultAccentColor || '#2563eb',
             customSenderEmail: settings.customSenderEmail || '',
           });
+          setIsPremium(settings.isPremium || false);
         }
       } catch (err) {
         const message = err instanceof Error ? err.message : 'Failed to load settings';
@@ -287,15 +289,37 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          {/* Custom Email Domain Section */}
-          <div className="bg-white rounded-lg shadow p-6">
+          {/* Custom Email Domain Section - Premium Only */}
+          <div className={`bg-white rounded-lg shadow p-6 ${!isPremium ? 'relative' : ''}`}>
+            {!isPremium && (
+              <div className="absolute inset-0 bg-white/80 backdrop-blur-[1px] rounded-lg z-10 flex items-center justify-center">
+                <div className="text-center p-6">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 mb-3">
+                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Premium Feature</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Custom email domains are available for Premium users
+                  </p>
+                  <a
+                    href="/pricing"
+                    className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-amber-400 to-yellow-500 text-white font-medium rounded-lg hover:from-amber-500 hover:to-yellow-600 transition-all"
+                  >
+                    Upgrade to Premium
+                  </a>
+                </div>
+              </div>
+            )}
+
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h2 className="text-lg font-semibold text-gray-900">Custom Email Domain</h2>
                 <p className="text-sm text-gray-500">Send reminders from your own email domain</p>
               </div>
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                Advanced
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-amber-400 to-yellow-500 text-white">
+                Premium
               </span>
             </div>
 
@@ -309,6 +333,7 @@ export default function SettingsPage() {
                   type="button"
                   onClick={() => setShowResendGuide(!showResendGuide)}
                   className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center"
+                  disabled={!isPremium}
                 >
                   {showResendGuide ? 'Hide' : 'Show'} setup guide
                   <svg
@@ -322,7 +347,7 @@ export default function SettingsPage() {
                 </button>
               </div>
 
-              {showResendGuide && (
+              {showResendGuide && isPremium && (
                 <div className="border border-blue-200 rounded-lg p-4 bg-blue-50">
                   <h4 className="font-medium text-blue-900 mb-3">How to Set Up Your Own Email Domain (Free)</h4>
                   <ol className="list-decimal list-inside space-y-2 text-sm text-blue-800">
@@ -372,14 +397,15 @@ export default function SettingsPage() {
                   value={formData.customSenderEmail}
                   onChange={handleChange}
                   placeholder="invoices@yourdomain.com"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+                  disabled={!isPremium}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 ${!isPremium ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                 />
                 <p className="mt-1 text-xs text-gray-500">
                   Leave empty to use the default sender. Only enter an email from a domain you have verified with Resend.
                 </p>
               </div>
 
-              {formData.customSenderEmail && (
+              {formData.customSenderEmail && isPremium && (
                 <div className="flex items-start gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                   <svg className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />

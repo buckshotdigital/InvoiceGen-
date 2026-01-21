@@ -92,14 +92,18 @@ export async function POST(request: NextRequest) {
       .eq('user_id', userId)
       .single();
 
+    const isPremiumUser = settingsData?.is_premium || false;
+
     console.log('✅ Settings fetched:', {
       businessName: settingsData?.default_from_name,
-      customSenderEmail: settingsData?.custom_sender_email
+      customSenderEmail: settingsData?.custom_sender_email,
+      isPremium: isPremiumUser
     });
 
     const businessName = settingsData?.default_from_name || 'Our Business';
     const businessEmail = settingsData?.default_from_email || 'invoices@bdsalesinc.ca';
-    const customSenderEmail = settingsData?.custom_sender_email; // User's verified Resend domain email
+    // Only use custom sender email if user is premium
+    const customSenderEmail = isPremiumUser ? settingsData?.custom_sender_email : undefined;
 
     // Determine reminder type if not provided
     const reminderType = customReminderType || determineReminderType(invoice, businessName);
