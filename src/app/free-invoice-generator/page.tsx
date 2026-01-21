@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     'cloud invoice',
   ],
   alternates: {
-    canonical: 'https://invoice-gen-two-rho.vercel.app/free-invoice-generator',
+    canonical: 'https://invoice-generator-kappa-red.vercel.app/free-invoice-generator',
   },
   openGraph: {
     title: 'Free Invoice Generator - Create, Track & Send Payment Reminders',
     description: 'Create invoices, track payments, send reminders. Free cloud storage with premium features at $4.99/month.',
     type: 'website',
-    url: 'https://invoice-gen-two-rho.vercel.app/free-invoice-generator',
+    url: 'https://invoice-generator-kappa-red.vercel.app/free-invoice-generator',
   },
 };
 

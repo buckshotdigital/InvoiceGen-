@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin, supabase } from '@/lib/supabase/client';
+import { supabaseAdmin } from '@/lib/supabase/client';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { sendReminderEmail } from '@/lib/email/resend-client';
 import { generateEmailTemplate, determineReminderType, ReminderType } from '@/lib/email/templates';
 import { transformSupabaseInvoice } from '@/lib/utils/transform';
@@ -12,7 +13,6 @@ interface SendReminderRequest {
   reminderType?: ReminderType;
   customSubject?: string;
   customMessage?: string;
-  userId?: string;
 }
 
 /**
@@ -21,17 +21,29 @@ interface SendReminderRequest {
  */
 export async function POST(request: NextRequest) {
   try {
+    // Authenticate user from Authorization header
+    const authHeader = request.headers.get('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
+    }
+    const accessToken = authHeader.replace('Bearer ', '');
+
+    // Verify user with Supabase using the token
+    const supabase = createServerSupabaseClient(accessToken);
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 });
+    }
+
+    const userId = user.id; // Use verified user ID from session, not from client
+
     const body: SendReminderRequest = await request.json();
-    const { invoiceId, reminderType: customReminderType, customSubject, customMessage, userId } = body;
+    const { invoiceId, reminderType: customReminderType, customSubject, customMessage } = body;
 
     console.log('📧 Reminder request received:', { invoiceId, customReminderType, userId });
 
-    // Verify userId is provided (sent from client)
-    if (!userId) {
-      return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
-    }
-
-    // Use admin client to verify the invoice belongs to this user
+    // Use admin client to fetch invoice data
     if (!supabaseAdmin) {
       return NextResponse.json({ error: 'Admin client not configured' }, { status: 500 });
     }
@@ -100,8 +112,9 @@ export async function POST(request: NextRequest) {
       isPremium: isPremiumUser
     });
 
-    const businessName = settingsData?.default_from_name || 'Our Business';
-    const businessEmail = settingsData?.default_from_email || 'invoices@bdsalesinc.ca';
+    // Use invoice's from info first (what client sees on invoice), then settings, then generic fallback
+    const businessName = invoice.fromName || settingsData?.default_from_name || 'Your Business';
+    const businessEmail = invoice.fromEmail || settingsData?.default_from_email || 'noreply@invoicegen.app';
     // Only use custom sender email if user is premium
     const customSenderEmail = isPremiumUser ? settingsData?.custom_sender_email : undefined;
 
@@ -113,7 +126,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate email template
-    let emailTemplate = generateEmailTemplate(invoice, reminderType, businessName, businessEmail);
+    let emailTemplate = generateEmailTemplate(invoice, reminderType, businessName, businessEmail, customMessage);
 
     // Apply custom subject if provided
     if (customSubject) {

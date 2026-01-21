@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: `${siteUrl}/og-image.png`,
+        url: `${siteUrl}/og-image.svg`,
         width: 1200,
         height: 630,
         alt: 'InvoiceGen - Professional Invoice Generator',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'InvoiceGen - Free Professional Invoice Generator',
     description: 'Create invoices, track payments, send reminders. Free cloud storage with premium features.',
-    images: [`${siteUrl}/og-image.png`],
+    images: [`${siteUrl}/og-image.svg`],
   },
   robots: {
     index: true,
@@ -86,6 +86,14 @@ export const metadata: Metadata = {
   },
   verification: {
     google: 'XUC0kAyql3EE_w-JCYc1p3kikwYcfPCasNlsmD8jH4w',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
 };
 

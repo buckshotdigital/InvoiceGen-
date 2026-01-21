@@ -1,0 +1,48 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Decorative shapes -->
+  <circle cx="100" cy="100" r="200" fill="white" fill-opacity="0.05"/>
+  <circle cx="1100" cy="530" r="250" fill="white" fill-opacity="0.05"/>
+
+  <!-- Logo icon -->
+  <g transform="translate(100, 215)">
+    <rect width="80" height="100" rx="8" fill="white"/>
+    <rect x="15" y="18" width="50" height="8" rx="4" fill="#4f46e5"/>
+    <rect x="15" y="32" width="40" height="5" rx="2.5" fill="#c7d2fe"/>
+    <rect x="15" y="42" width="50" height="5" rx="2.5" fill="#c7d2fe"/>
+    <rect x="15" y="52" width="30" height="5" rx="2.5" fill="#c7d2fe"/>
+    <rect x="15" y="70" width="50" height="12" rx="6" fill="#f0fdf4"/>
+    <rect x="20" y="74" width="20" height="4" rx="2" fill="#22c55e"/>
+    <text x="55" y="80" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#22c55e">$</text>
+  </g>
+
+  <!-- Main text -->
+  <text x="220" y="250" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="white">InvoiceGen</text>
+  <text x="220" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="white" fill-opacity="0.9">Professional Invoices in Seconds</text>
+
+  <!-- Features -->
+  <g transform="translate(220, 370)" font-family="system-ui, sans-serif" font-size="22" fill="white" fill-opacity="0.85">
+    <text x="0" y="0">✓ Free Cloud Storage</text>
+    <text x="280" y="0">✓ Payment Tracking</text>
+    <text x="560" y="0">✓ Email Reminders</text>
+    <text x="0" y="40">✓ PDF Export</text>
+    <text x="280" y="40">✓ Multiple Currencies</text>
+    <text x="560" y="40">✓ Premium Branding</text>
+  </g>
+
+  <!-- CTA -->
+  <rect x="220" y="480" width="220" height="56" rx="28" fill="white"/>
+  <text x="260" y="518" font-family="system-ui, sans-serif" font-size="22" font-weight="600" fill="#4f46e5">Start Free Today</text>
+
+  <!-- URL -->
+  <text x="1080" y="590" font-family="system-ui, sans-serif" font-size="18" fill="white" fill-opacity="0.7" text-anchor="end">invoice-generator-kappa-red.vercel.app</text>
+</svg>

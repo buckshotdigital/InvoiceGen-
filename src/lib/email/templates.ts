@@ -42,7 +42,8 @@ export function generateEmailTemplate(
   invoice: Invoice,
   reminderType: ReminderType,
   businessName: string,
-  businessEmail: string
+  businessEmail: string,
+  customMessage?: string
 ): EmailTemplate {
   const invoiceUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/invoices/${invoice.id}`;
   const dueDate = new Date(invoice.dueDate).toLocaleDateString('en-US', {
@@ -90,12 +91,15 @@ export function generateEmailTemplate(
       break;
   }
 
+  // Use custom message if provided, otherwise use the default based on reminder type
+  const finalMessage = customMessage || mainMessage;
+
   const html = generateHTML(
     invoice,
     invoiceUrl,
     subject,
     heading,
-    mainMessage,
+    finalMessage,
     dueDate,
     total,
     businessName,
@@ -103,7 +107,7 @@ export function generateEmailTemplate(
     urgencyLevel
   );
 
-  const text = generatePlainText(invoice, invoiceUrl, subject, mainMessage, dueDate, total, businessName);
+  const text = generatePlainText(invoice, invoiceUrl, subject, finalMessage, dueDate, total, businessName);
 
   return {
     subject,

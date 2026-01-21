@@ -7,7 +7,21 @@ export const metadata: Metadata = {
   description:
     'Learn how to create professional invoices, get paid faster, and manage your freelance business. Free guides and templates for freelancers and small businesses.',
   alternates: {
-    canonical: 'https://invoice-gen-two-rho.vercel.app/blog',
+    canonical: 'https://invoice-generator-kappa-red.vercel.app/blog',
+  },
+  openGraph: {
+    title: 'Invoice Tips & Guides - InvoiceGen Blog',
+    description: 'Free guides and templates for freelancers and small businesses. Learn invoicing best practices.',
+    type: 'website',
+    url: 'https://invoice-generator-kappa-red.vercel.app/blog',
+    images: [
+      {
+        url: 'https://invoice-generator-kappa-red.vercel.app/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'InvoiceGen Blog',
+      },
+    ],
   },
 };
 

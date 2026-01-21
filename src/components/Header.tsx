@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useToastContext } from '@/contexts/ToastContext';
 import { useSettings } from '@/hooks/useSettings';
 import { supabase } from '@/lib/supabase/client';
 
@@ -11,6 +12,7 @@ export default function Header() {
   const router = useRouter();
   const { user, signOut } = useAuth();
   const { fetchSettings } = useSettings();
+  const { error: showError } = useToastContext();
   const [isPremium, setIsPremium] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,13 +49,19 @@ export default function Header() {
       });
       const data = await response.json();
 
+      if (!response.ok) {
+        showError(data.error || 'Failed to open subscription management');
+        return;
+      }
+
       if (data.url) {
         router.push(data.url);
       } else {
-        console.error('Failed to create portal session');
+        showError('Failed to open subscription management');
       }
     } catch (error) {
-      console.error('Error managing subscription:', error);
+      const message = error instanceof Error ? error.message : 'Error managing subscription';
+      showError(message);
     } finally {
       setIsLoading(false);
     }

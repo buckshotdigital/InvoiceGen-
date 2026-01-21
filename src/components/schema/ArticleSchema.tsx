@@ -18,14 +18,14 @@ export function ArticleSchema(props: ArticleSchemaProps) {
     author: {
       "@type": "Organization",
       name: props.authorName || "InvoiceGen Team",
-      url: "https://invoice-gen-two-rho.vercel.app",
+      url: "https://invoice-generator-kappa-red.vercel.app",
     },
     publisher: {
       "@type": "Organization",
       name: "InvoiceGen",
       logo: {
         "@type": "ImageObject",
-        url: "https://invoice-gen-two-rho.vercel.app/logo.png",
+        url: "https://invoice-generator-kappa-red.vercel.app/logo.png",
       },
     },
     ...(props.imageUrl && {

@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: guide.description,
     keywords: guide.keywords,
     alternates: {
-      canonical: `https://invoice-gen-two-rho.vercel.app/guides/${industry}`,
+      canonical: `https://invoice-generator-kappa-red.vercel.app/guides/${industry}`,
     },
   };
 }
@@ -64,9 +64,9 @@ export default async function GuidePage({ params }: PageProps) {
       />
       <BreadcrumbSchema
         items={[
-          { name: 'Home', url: 'https://invoice-gen-two-rho.vercel.app' },
-          { name: 'Guides', url: 'https://invoice-gen-two-rho.vercel.app/guides' },
-          { name: guide.title, url: `https://invoice-gen-two-rho.vercel.app/guides/${guide.slug}` },
+          { name: 'Home', url: 'https://invoice-generator-kappa-red.vercel.app' },
+          { name: 'Guides', url: 'https://invoice-generator-kappa-red.vercel.app/guides' },
+          { name: guide.title, url: `https://invoice-generator-kappa-red.vercel.app/guides/${guide.slug}` },
         ]}
       />
       <Header />

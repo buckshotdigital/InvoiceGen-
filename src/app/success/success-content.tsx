@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
@@ -25,35 +25,33 @@ export default function SuccessContent() {
 
   const [state, setState] = useState<VerificationState>('loading');
   const [error, setError] = useState<string | null>(null);
-  const [pollCount, setPollCount] = useState(0);
+  const pollCountRef = useRef(0);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isMountedRef = useRef(true);
 
-  useEffect(() => {
-    if (!authLoading && !user) {
-      router.push('/auth/login');
-      return;
-    }
+  const verifySession = useCallback(async (isRetry = false) => {
+    // Don't proceed if component is unmounted
+    if (!isMountedRef.current) return;
 
-    if (!authLoading && user) {
-      verifySession();
-    }
-  }, [user, authLoading]);
-
-  const verifySession = async (isRetry = false) => {
     try {
       const sessionId = searchParams.get('session_id');
 
       if (!sessionId) {
-        setError('Invalid success page access');
-        setState('error');
+        if (isMountedRef.current) {
+          setError('Invalid success page access');
+          setState('error');
+        }
         return;
       }
 
       // Get current session for auth token
       const { data: { session: authSession } } = await supabase.auth.getSession();
       if (!authSession?.access_token) {
-        setError('Session expired. Please log in again.');
-        setState('error');
-        router.push('/auth/login');
+        if (isMountedRef.current) {
+          setError('Session expired. Please log in again.');
+          setState('error');
+          router.push('/auth/login');
+        }
         return;
       }
 
@@ -65,6 +63,9 @@ export default function SuccessContent() {
         },
         body: JSON.stringify({ session_id: sessionId }),
       });
+
+      // Check if still mounted after async operation
+      if (!isMountedRef.current) return;
 
       const data: VerifySessionResponse = await response.json();
 
@@ -87,18 +88,18 @@ export default function SuccessContent() {
         setState('success');
       } else if (data.processing) {
         // Webhook is still processing, poll for updates
-        if (isRetry && pollCount < 5) {
+        if (isRetry && pollCountRef.current < 5) {
           setState('processing');
-          setPollCount(pollCount + 1);
+          pollCountRef.current += 1;
           // Wait 2 seconds before polling again
-          setTimeout(() => {
+          timeoutRef.current = setTimeout(() => {
             verifySession(true);
           }, 2000);
         } else if (!isRetry) {
           setState('processing');
-          setPollCount(1);
+          pollCountRef.current = 1;
           // Start polling
-          setTimeout(() => {
+          timeoutRef.current = setTimeout(() => {
             verifySession(true);
           }, 2000);
         } else {
@@ -110,12 +111,35 @@ export default function SuccessContent() {
         setState('success');
       }
     } catch (err) {
+      if (!isMountedRef.current) return;
       const message = err instanceof Error ? err.message : 'An error occurred';
       setError(message);
       setState('error');
       showError(message);
     }
-  };
+  }, [searchParams, router, showError]);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+
+    if (!authLoading && !user) {
+      router.push('/auth/login');
+      return;
+    }
+
+    if (!authLoading && user) {
+      verifySession();
+    }
+
+    // Cleanup function to cancel pending timeouts and mark as unmounted
+    return () => {
+      isMountedRef.current = false;
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, [user, authLoading, router, verifySession]);
 
   if (state === 'loading') {
     return (

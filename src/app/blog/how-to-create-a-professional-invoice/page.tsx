@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     'create invoice',
   ],
   alternates: {
-    canonical: 'https://invoice-gen-two-rho.vercel.app/blog/how-to-create-a-professional-invoice',
+    canonical: 'https://invoice-generator-kappa-red.vercel.app/blog/how-to-create-a-professional-invoice',
   },
 };
 
@@ -31,9 +31,9 @@ export default function HowToCreateInvoicePage() {
       />
       <BreadcrumbSchema
         items={[
-          { name: "Home", url: "https://invoice-gen-two-rho.vercel.app" },
-          { name: "Blog", url: "https://invoice-gen-two-rho.vercel.app/blog" },
-          { name: "How to Create a Professional Invoice", url: "https://invoice-gen-two-rho.vercel.app/blog/how-to-create-a-professional-invoice" },
+          { name: "Home", url: "https://invoice-generator-kappa-red.vercel.app" },
+          { name: "Blog", url: "https://invoice-generator-kappa-red.vercel.app/blog" },
+          { name: "How to Create a Professional Invoice", url: "https://invoice-generator-kappa-red.vercel.app/blog/how-to-create-a-professional-invoice" },
         ]}
       />
       <Header />

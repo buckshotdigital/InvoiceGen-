@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     'online invoice maker',
   ],
   alternates: {
-    canonical: 'https://invoice-gen-two-rho.vercel.app/invoice-maker',
+    canonical: 'https://invoice-generator-kappa-red.vercel.app/invoice-maker',
   },
   openGraph: {
     title: 'Invoice Maker - Create & Send Professional Invoices',
     description: 'Make professional invoices online in minutes. Free, fast, and easy to use.',
     type: 'website',
-    url: 'https://invoice-gen-two-rho.vercel.app/invoice-maker',
+    url: 'https://invoice-generator-kappa-red.vercel.app/invoice-maker',
   },
 };
 

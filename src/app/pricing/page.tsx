@@ -54,10 +54,15 @@ export default function PricingPage() {
       });
       const data = await response.json();
 
+      if (!response.ok) {
+        showError(data.error || 'Failed to open subscription management');
+        return;
+      }
+
       if (data.url) {
         router.push(data.url);
       } else {
-        showError(data.error || 'Failed to open subscription management');
+        showError('Failed to open subscription management');
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : 'An error occurred';
@@ -91,6 +96,11 @@ export default function PricingPage() {
         },
       });
       const data = await response.json();
+
+      if (!response.ok) {
+        showError(data.error || 'Unable to start checkout. Please try again.');
+        return;
+      }
 
       if (data.url) {
         window.location.href = data.url;

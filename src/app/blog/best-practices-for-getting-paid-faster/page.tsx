@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     'reduce late payments',
   ],
   alternates: {
-    canonical: 'https://invoice-gen-two-rho.vercel.app/blog/best-practices-for-getting-paid-faster',
+    canonical: 'https://invoice-generator-kappa-red.vercel.app/blog/best-practices-for-getting-paid-faster',
   },
 };
 
@@ -31,9 +31,9 @@ export default function GetPaidFasterPage() {
       />
       <BreadcrumbSchema
         items={[
-          { name: "Home", url: "https://invoice-gen-two-rho.vercel.app" },
-          { name: "Blog", url: "https://invoice-gen-two-rho.vercel.app/blog" },
-          { name: "Best Practices for Getting Paid Faster", url: "https://invoice-gen-two-rho.vercel.app/blog/best-practices-for-getting-paid-faster" },
+          { name: "Home", url: "https://invoice-generator-kappa-red.vercel.app" },
+          { name: "Blog", url: "https://invoice-generator-kappa-red.vercel.app/blog" },
+          { name: "Best Practices for Getting Paid Faster", url: "https://invoice-generator-kappa-red.vercel.app/blog/best-practices-for-getting-paid-faster" },
         ]}
       />
       <Header />

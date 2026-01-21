@@ -10,7 +10,7 @@ interface SendReminderModalProps {
   businessEmail: string;
   isOpen: boolean;
   onClose: () => void;
-  onSend: (subject: string, reminderType: ReminderType) => Promise<void>;
+  onSend: (subject: string, reminderType: ReminderType, customMessage?: string) => Promise<void>;
 }
 
 interface QuotaInfo {
@@ -30,6 +30,7 @@ export default function SendReminderModal({
   const [loading, setSending] = useState(false);
   const [error, setError] = useState('');
   const [subject, setSubject] = useState('');
+  const [customMessage, setCustomMessage] = useState('');
   const [selectedType, setSelectedType] = useState<ReminderType>('overdue_1_7');
   const [showPreview, setShowPreview] = useState(false);
   const [quota, setQuota] = useState<QuotaInfo | null>(null);
@@ -45,10 +46,11 @@ export default function SendReminderModal({
 
     try {
       console.log('🔔 Modal sending reminder...');
-      await onSend(subject || emailTemplate.subject, selectedType);
+      await onSend(subject || emailTemplate.subject, selectedType, customMessage || undefined);
       console.log('✅ Modal: reminder sent successfully');
       // Only close if send was successful
       setSubject('');
+      setCustomMessage('');
       // Modal will close via parent state
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to send reminder';
@@ -174,6 +176,21 @@ export default function SendReminderModal({
             <p className="mt-1 text-xs text-gray-500">Leave blank to use default subject</p>
           </div>
 
+          {/* Email Body */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Email Message</label>
+            <textarea
+              value={customMessage}
+              onChange={(e) => setCustomMessage(e.target.value)}
+              placeholder="Enter your custom message here, or leave blank to use the default template message..."
+              rows={4}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 resize-y"
+            />
+            <p className="mt-1 text-xs text-gray-500">
+              Customize the main message. Leave blank for the default reminder message based on type selected above.
+            </p>
+          </div>
+
           {/* Quota Info */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <p className="text-sm text-blue-800 mb-2">
@@ -201,7 +218,13 @@ export default function SendReminderModal({
               <div className="mt-3 bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <p className="text-xs text-gray-600 font-medium mb-2">Subject:</p>
                 <p className="text-sm text-gray-900 mb-3">{subject || emailTemplate.subject}</p>
-                <p className="text-xs text-gray-600 font-medium mb-2">Preview:</p>
+                <p className="text-xs text-gray-600 font-medium mb-2">Message:</p>
+                <div className="text-sm text-gray-700 bg-white p-3 rounded border border-gray-200 mb-3">
+                  {customMessage || (
+                    <span className="text-gray-500 italic">Default template message will be used</span>
+                  )}
+                </div>
+                <p className="text-xs text-gray-600 font-medium mb-2">Full Email Preview:</p>
                 <div
                   className="text-xs text-gray-700 bg-white p-3 rounded border border-gray-200 max-h-48 overflow-y-auto"
                   dangerouslySetInnerHTML={{

@@ -11,6 +11,7 @@ import { useSettings } from '@/hooks/useSettings';
 import { Invoice, CURRENCIES, UserSettings } from '@/types/invoice';
 import { ReminderType } from '@/lib/email/templates';
 import { getInvoices, markInvoiceAsPaid } from '@/lib/api/invoices';
+import { supabase } from '@/lib/supabase/client';
 
 export default function InvoiceDetailPage() {
   const router = useRouter();
@@ -69,21 +70,30 @@ export default function InvoiceDetailPage() {
     }
   };
 
-  const handleSendReminder = async (subject: string, reminderType: ReminderType) => {
+  const handleSendReminder = async (subject: string, reminderType: ReminderType, customMessage?: string) => {
     if (!invoice || !user) {
       throw new Error('Missing required data');
     }
 
     try {
+      // Get access token for authenticated API call
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        throw new Error('Session expired. Please log in again.');
+      }
+
       const response = await fetch('/api/reminders/send', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
         credentials: 'include',
         body: JSON.stringify({
           invoiceId: invoice.id,
           reminderType,
           customSubject: subject,
-          userId: user.id,
+          customMessage,
         }),
       });
 
@@ -342,8 +352,8 @@ export default function InvoiceDetailPage() {
       {settings && (
         <SendReminderModal
           invoice={invoice}
-          businessName={settings.defaultFromName || 'Our Business'}
-          businessEmail={settings.defaultFromEmail || user?.email || 'invoices@bdsalesinc.ca'}
+          businessName={invoice.fromName || settings.defaultFromName || 'Your Business'}
+          businessEmail={invoice.fromEmail || settings.defaultFromEmail || user?.email || ''}
           isOpen={isReminderModalOpen}
           onClose={() => setIsReminderModalOpen(false)}
           onSend={handleSendReminder}

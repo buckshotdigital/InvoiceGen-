@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     'contractor invoice template',
   ],
   alternates: {
-    canonical: 'https://invoice-gen-two-rho.vercel.app/invoice-template',
+    canonical: 'https://invoice-generator-kappa-red.vercel.app/invoice-template',
   },
   openGraph: {
     title: 'Invoice Template - Free Professional Invoice Templates',
     description: 'Free invoice templates for freelancers and small businesses. Download as PDF.',
     type: 'website',
-    url: 'https://invoice-gen-two-rho.vercel.app/invoice-template',
+    url: 'https://invoice-generator-kappa-red.vercel.app/invoice-template',
   },
 };
 

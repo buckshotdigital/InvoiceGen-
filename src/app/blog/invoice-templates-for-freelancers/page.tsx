@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     'retainer invoice',
   ],
   alternates: {
-    canonical: 'https://invoice-gen-two-rho.vercel.app/blog/invoice-templates-for-freelancers',
+    canonical: 'https://invoice-generator-kappa-red.vercel.app/blog/invoice-templates-for-freelancers',
   },
 };
 
@@ -31,9 +31,9 @@ export default function InvoiceTemplatesFreelancersPage() {
       />
       <BreadcrumbSchema
         items={[
-          { name: "Home", url: "https://invoice-gen-two-rho.vercel.app" },
-          { name: "Blog", url: "https://invoice-gen-two-rho.vercel.app/blog" },
-          { name: "Invoice Templates for Freelancers", url: "https://invoice-gen-two-rho.vercel.app/blog/invoice-templates-for-freelancers" },
+          { name: "Home", url: "https://invoice-generator-kappa-red.vercel.app" },
+          { name: "Blog", url: "https://invoice-generator-kappa-red.vercel.app/blog" },
+          { name: "Invoice Templates for Freelancers", url: "https://invoice-generator-kappa-red.vercel.app/blog/invoice-templates-for-freelancers" },
         ]}
       />
       <Header />
