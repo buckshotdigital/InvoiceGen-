@@ -1,10 +1,34 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
+import { SoftwareAppSchema } from '@/components/schema/SoftwareAppSchema';
+import { FAQSchema } from '@/components/schema/FAQSchema';
+
+const homeFAQs = [
+  {
+    question: 'Is InvoiceGen really free?',
+    answer: 'Yes! InvoiceGen offers a free plan that lets you create unlimited invoices, track up to 3 payments, and send 3 email reminders per month. Premium features like custom branding and unlimited tracking are available for $4.99/month.',
+  },
+  {
+    question: 'Do I need to create an account?',
+    answer: 'A free account with email or Google Sign-In gives you cloud storage, payment tracking, and email reminders. Your invoices are saved securely and accessible from any device.',
+  },
+  {
+    question: 'Can I add my logo to invoices?',
+    answer: 'Yes, premium users can upload their company logo and customize accent colors for fully branded invoices.',
+  },
+  {
+    question: 'How does payment tracking work?',
+    answer: 'Mark invoices as paid, pending, or overdue. View your dashboard to see collection rates, overdue amounts, and send payment reminders with one click.',
+  },
+];
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      <Header />
+    <>
+      <SoftwareAppSchema />
+      <FAQSchema faqs={homeFAQs} />
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+        <Header />
 
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
@@ -14,8 +38,8 @@ export default function Home() {
             <span className="block text-primary-600">in Seconds</span>
           </h1>
           <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-600">
-            Create beautiful, professional invoices for free. Perfect for freelancers, consultants,
-            and small businesses.
+            Create invoices, track payments, and send reminders. Free cloud storage with your account.
+            Perfect for freelancers, consultants, and small businesses.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -125,13 +149,13 @@ export default function Home() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                    d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Lightning Fast</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Cloud Storage</h3>
               <p className="text-gray-600">
-                Create professional invoices in under 2 minutes. No account required.
+                Free account with cloud storage. Access your invoices from any device, anytime.
               </p>
             </div>
 
@@ -182,6 +206,83 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Payment Tracking Section */}
+      <section className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+            Track & Collect Faster
+          </h2>
+          <p className="text-center text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+            Our new payment tracking dashboard and email reminders help you get paid faster
+          </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Payment Dashboard</h3>
+              <p className="text-gray-600 mb-4">
+                See your invoices at a glance with payment status, due dates, and days overdue. Track collection rates and identify which clients are late. Free plan tracks up to 3 invoices.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li className="flex items-center">
+                  <span className="w-2 h-2 bg-primary-600 rounded-full mr-2"></span>
+                  Track 3 invoices free (unlimited with Premium)
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 bg-primary-600 rounded-full mr-2"></span>
+                  Filter by status (paid, pending, overdue)
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 bg-primary-600 rounded-full mr-2"></span>
+                  Collection rate metrics
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Email Reminders</h3>
+              <p className="text-gray-600 mb-4">
+                Send professional payment reminders with a single click. Automated templates for due soon, overdue, and final notices—Free plan includes 3/month.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li className="flex items-center">
+                  <span className="w-2 h-2 bg-primary-600 rounded-full mr-2"></span>
+                  4 reminder templates
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 bg-primary-600 rounded-full mr-2"></span>
+                  Customizable subject lines
+                </li>
+                <li className="flex items-center">
+                  <span className="w-2 h-2 bg-primary-600 rounded-full mr-2"></span>
+                  Unlimited reminders with Premium
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-10 text-center">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 shadow-lg"
+            >
+              Open Payment Dashboard
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </Link>
+            <p className="mt-3 text-sm text-gray-500">Free account required for tracking features</p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 text-center">
@@ -226,6 +327,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }

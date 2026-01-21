@@ -2,8 +2,12 @@
 
 import { useState, useEffect, ChangeEvent } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToastContext } from '@/contexts/ToastContext';
+import { useInvoices } from '@/hooks/useInvoices';
+import { useSettings } from '@/hooks/useSettings';
 import { Invoice, InvoiceItem, DEFAULT_INVOICE, CURRENCIES } from '@/types/invoice';
-import { storage } from '@/lib/storage';
 import { generatePDF } from '@/lib/generatePDF';
 import InvoicePreview from './InvoicePreview';
 
@@ -12,6 +16,12 @@ interface InvoiceFormProps {
 }
 
 export default function InvoiceForm({ invoiceId }: InvoiceFormProps) {
+  const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
+  const { fetchInvoiceById, addInvoice, editInvoice, getNextNumber, loading: invoicesLoading } = useInvoices();
+  const { fetchSettings, loading: settingsLoading } = useSettings();
+  const { success: showSuccess, error: showError } = useToastContext();
+
   const [invoice, setInvoice] = useState<Invoice>(() => ({
     ...DEFAULT_INVOICE,
     id: uuidv4(),
@@ -21,33 +31,51 @@ export default function InvoiceForm({ invoiceId }: InvoiceFormProps) {
   const [isPremium, setIsPremium] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const settings = storage.getSettings();
-    setIsPremium(settings.isPremium);
+    if (!user || authLoading) return;
 
-    if (invoiceId) {
-      const existing = storage.getInvoice(invoiceId);
-      if (existing) {
-        setInvoice(existing);
-        return;
+    const initializeForm = async () => {
+      try {
+        // Fetch user settings
+        const settings = await fetchSettings();
+        if (settings) {
+          setIsPremium(settings.isPremium);
+        }
+
+        // Load existing invoice or create new one
+        if (invoiceId) {
+          const existing = await fetchInvoiceById(invoiceId);
+          if (existing) {
+            setInvoice(existing);
+            return;
+          }
+        }
+
+        // Apply defaults for new invoice
+        const nextNumber = await getNextNumber();
+        setInvoice((prev) => ({
+          ...prev,
+          invoiceNumber: nextNumber,
+          fromName: settings?.defaultFromName || '',
+          fromEmail: settings?.defaultFromEmail || '',
+          fromAddress: settings?.defaultFromAddress || '',
+          fromPhone: settings?.defaultFromPhone || '',
+          currency: settings?.defaultCurrency || 'USD',
+          taxRate: settings?.defaultTaxRate || 0,
+          accentColor: settings?.defaultAccentColor || '#2563eb',
+          logo: settings?.logo,
+        }));
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to load form data';
+        setError(message);
       }
-    }
+    };
 
-    // Apply defaults for new invoice
-    setInvoice((prev) => ({
-      ...prev,
-      invoiceNumber: storage.getNextInvoiceNumber(),
-      fromName: settings.defaultFromName,
-      fromEmail: settings.defaultFromEmail,
-      fromAddress: settings.defaultFromAddress,
-      fromPhone: settings.defaultFromPhone,
-      currency: settings.defaultCurrency,
-      taxRate: settings.defaultTaxRate,
-      accentColor: settings.defaultAccentColor,
-      logo: settings.logo,
-    }));
-  }, [invoiceId]);
+    initializeForm();
+  }, [user, authLoading, invoiceId, fetchSettings, fetchInvoiceById, getNextNumber]);
 
   const updateField = (field: keyof Invoice, value: string | number | boolean) => {
     setInvoice((prev) => ({ ...prev, [field]: value }));
@@ -91,10 +119,46 @@ export default function InvoiceForm({ invoiceId }: InvoiceFormProps) {
     reader.readAsDataURL(file);
   };
 
-  const handleSave = () => {
-    storage.saveInvoice(invoice);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  const handleSave = async () => {
+    if (!user) {
+      showError('User not authenticated');
+      setError('User not authenticated');
+      return;
+    }
+
+    setSaving(true);
+    setError('');
+
+    try {
+      if (invoiceId) {
+        // Update existing invoice
+        const result = await editInvoice(invoiceId, invoice);
+        if (!result) {
+          showError('Failed to update invoice');
+          setError('Failed to update invoice');
+          return;
+        }
+        showSuccess(`Invoice ${invoice.invoiceNumber} updated successfully`);
+      } else {
+        // Create new invoice
+        const result = await addInvoice(invoice as any);
+        if (!result) {
+          showError('Failed to create invoice');
+          setError('Failed to create invoice');
+          return;
+        }
+        showSuccess(`Invoice ${invoice.invoiceNumber} created successfully`);
+      }
+
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to save invoice';
+      showError(message);
+      setError(message);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleDownload = async () => {
@@ -106,8 +170,29 @@ export default function InvoiceForm({ invoiceId }: InvoiceFormProps) {
   const tax = subtotal * (invoice.taxRate / 100);
   const total = subtotal + tax;
 
+  // Show loading state while initializing
+  if (authLoading || settingsLoading || invoicesLoading) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading invoice form...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      {/* Error Message */}
+      {error && (
+        <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200">
+          <p className="text-sm text-red-800">{error}</p>
+        </div>
+      )}
+
       <div className="lg:grid lg:grid-cols-2 lg:gap-8">
         {/* Form */}
         <div className="space-y-6">
@@ -434,9 +519,19 @@ export default function InvoiceForm({ invoiceId }: InvoiceFormProps) {
           <div className="flex gap-4">
             <button
               onClick={handleSave}
-              className="flex-1 py-3 px-4 border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 flex items-center justify-center"
+              disabled={saving}
+              className={`flex-1 py-3 px-4 border border-gray-300 rounded-md font-medium flex items-center justify-center ${
+                saving
+                  ? 'bg-gray-100 text-gray-500 cursor-not-allowed'
+                  : 'text-gray-700 hover:bg-gray-50'
+              }`}
             >
-              {saved ? (
+              {saving ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-400 mr-2"></div>
+                  Saving...
+                </>
+              ) : saved ? (
                 <>
                   <svg
                     className="w-5 h-5 mr-2 text-green-500"

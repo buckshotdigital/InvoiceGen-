@@ -1,6 +1,6 @@
 # InvoiceGen - Professional Invoice Generator
 
-A free, professional invoice generator with premium features. Built with Next.js, Tailwind CSS, and Stripe for payments.
+A free, professional invoice generator with payment tracking, email reminders, and premium features. Built with Next.js, Tailwind CSS, Supabase, and Stripe.
 
 ## Features
 
@@ -8,13 +8,19 @@ A free, professional invoice generator with premium features. Built with Next.js
 - Unlimited invoice creation
 - PDF download
 - Multiple currencies (USD, EUR, GBP, CAD, AUD, INR, JPY)
-- Save invoices locally
+- **Cloud storage** (invoices sync across devices)
+- **User accounts** (signup/login)
+- **Track up to 3 invoices** (payment tracking dashboard)
+- **3 email reminders per month** (payment reminders)
 - Professional templates
 
 ### Premium Tier ($4.99/month)
+- **Unlimited invoice tracking** (track all your invoices)
+- **Unlimited email reminders**
 - Custom accent colors
 - Add your business logo
 - Remove InvoiceGen branding
+- **Subscription management** (via Stripe Billing Portal)
 - Priority support
 
 ## Quick Start (Run Locally)
@@ -87,10 +93,15 @@ Open http://localhost:3000 in your browser.
 1. Go to https://vercel.com/new
 2. Import your GitHub repository
 3. Add environment variables:
+   - `NEXT_PUBLIC_SUPABASE_URL` = your Supabase project URL
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` = your Supabase anon key
+   - `SUPABASE_SERVICE_ROLE_KEY` = your Supabase service role key
    - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` = your Stripe publishable key
    - `STRIPE_SECRET_KEY` = your Stripe secret key
    - `STRIPE_PRICE_ID` = your Stripe price ID
+   - `STRIPE_WEBHOOK_SECRET` = your Stripe webhook secret (from Step 4)
    - `NEXT_PUBLIC_DOMAIN` = your Vercel URL (e.g., https://invoice-generator.vercel.app)
+   - `RESEND_API_KEY` = your Resend API key (for email reminders)
 4. Click "Deploy"
 
 ### Step 4: Set Up Stripe Webhook (For Production)

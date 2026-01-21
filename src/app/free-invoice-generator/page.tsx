@@ -3,22 +3,25 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 
 export const metadata: Metadata = {
-  title: 'Free Invoice Generator - Create Professional Invoices Instantly | InvoiceGen',
+  title: 'Free Invoice Generator - Create, Track & Send Invoices | InvoiceGen',
   description:
-    'Create and download professional invoices in minutes. Free invoice generator with templates, tax calculations, multiple currencies, and PDF export. No signup required.',
+    'Create professional invoices in minutes with free cloud storage, payment tracking dashboard, and email reminders. PDF export, tax calculations, multiple currencies. Free signup, premium at $4.99/month.',
   keywords: [
     'free invoice generator',
     'invoice generator',
     'create invoice free',
     'online invoice maker',
     'invoice creator',
+    'payment tracking',
+    'invoice reminders',
+    'cloud invoice',
   ],
   alternates: {
     canonical: 'https://invoice-gen-two-rho.vercel.app/free-invoice-generator',
   },
   openGraph: {
-    title: 'Free Invoice Generator - Create Professional Invoices Instantly',
-    description: 'Create and download professional invoices in minutes. Free, no signup required.',
+    title: 'Free Invoice Generator - Create, Track & Send Payment Reminders',
+    description: 'Create invoices, track payments, send reminders. Free cloud storage with premium features at $4.99/month.',
     type: 'website',
     url: 'https://invoice-gen-two-rho.vercel.app/free-invoice-generator',
   },
@@ -140,9 +143,10 @@ export default function FreeInvoiceGeneratorPage() {
               'Multiple currencies (USD, EUR, GBP, etc.)',
               'Automatic tax calculations',
               'Professional templates',
-              'Save invoices locally',
+              'Cloud storage (with free account)',
+              'Track up to 3 invoices (unlimited with Premium)',
+              '3 email reminders per month',
               'Mobile-friendly',
-              'No account required',
             ].map((feature) => (
               <li key={feature} className="flex items-center">
                 <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -161,16 +165,16 @@ export default function FreeInvoiceGeneratorPage() {
             <div>
               <h3 className="font-semibold text-gray-900 mb-2">Is this invoice generator really free?</h3>
               <p className="text-gray-600">
-                Yes! You can create unlimited invoices and download them as PDFs completely free.
-                We offer optional premium features like custom branding for $4.99/month, but the core
+                Yes! You can create unlimited invoices, track up to 3 invoices in your dashboard, and send up to 3 email reminders per month completely free.
+                We offer optional premium features like custom branding, unlimited invoice tracking, and unlimited reminders for $4.99/month, but the core
                 invoice generator is free forever.
               </p>
             </div>
             <div>
               <h3 className="font-semibold text-gray-900 mb-2">Do I need to create an account?</h3>
               <p className="text-gray-600">
-                No account required. Your invoices are saved locally in your browser. Just start
-                creating invoices immediately.
+                Creating a free account unlocks cloud storage, payment tracking, and email reminders.
+                Your invoices sync across devices and are never lost. Sign up takes 30 seconds.
               </p>
             </div>
             <div>
