@@ -396,6 +396,382 @@ export const guides: Guide[] = [
   },
 ];
 
+  {
+    slug: 'digital-creator',
+    title: 'Invoice Guide for Digital Creators & Content Creators',
+    industry: 'Digital Content Creation',
+    description:
+      'Complete invoicing guide for YouTubers, influencers, podcasters, and content creators covering brand deals, sponsorships, affiliate commissions, and content licensing.',
+    excerpt:
+      'Learn how to invoice for brand deals, sponsorships, and content creation. Templates for YouTubers, influencers, and digital creators.',
+    keywords: [
+      'content creator invoice',
+      'influencer invoice template',
+      'YouTuber invoice',
+      'brand deal invoice',
+      'sponsorship invoice',
+      'social media invoice',
+      'TikTok creator invoice',
+      'Instagram influencer billing',
+    ],
+    publishedDate: '2026-01-20',
+    sections: [
+      {
+        title: 'Invoicing for Brand Deals & Sponsorships',
+        content: `Brand deals are the primary income source for most digital creators. Your invoice should clearly outline deliverables: "Instagram sponsored post (1 feed post + 3 stories) - $2,500" or "YouTube integration (60-second mid-roll mention) - $5,000." Break down each platform separately. Include usage rights: "Brand may repost content for 30 days" or "Perpetual usage rights: +$1,500." Specify exclusivity periods: "Creator agrees not to work with competing brands for 60 days - included in fee." Always invoice 50% upfront before creating content, 50% upon delivery or posting. Include revision limits: "One round of script revisions included."`,
+      },
+      {
+        title: 'Affiliate & Commission Invoicing',
+        content: `For affiliate partnerships, invoice monthly based on tracked conversions. Include: "Affiliate sales generated: 150 units / Commission rate: $10/unit / Total: $1,500." Attach affiliate dashboard screenshots as proof. For revenue share deals: "Total revenue from sponsored content: $50,000 / Creator share (30%): $15,000." Keep detailed records of all affiliate links and their performance. Invoice on a consistent schedule (monthly) with NET 30 terms.`,
+      },
+      {
+        title: 'Content Licensing & Repurposing Fees',
+        content: `When brands want to use your content beyond the original agreement, invoice licensing fees. Examples: "TV commercial usage (1 year): $10,000" or "Print advertising rights: $3,000" or "Website banner usage (perpetual): $2,000." Always specify duration and geographic scope: "North America only" vs "Worldwide rights." Charge premiums for exclusivity or extended usage. Invoice separately from original content creation fees.`,
+      },
+      {
+        title: 'Platform-Specific Invoicing',
+        content: `Different platforms command different rates. YouTube: Invoice per video, include integration length and placement (pre-roll, mid-roll, dedicated). Instagram: Invoice per post type (feed, story, reel) with engagement guarantees if applicable. TikTok: Invoice per video with usage rights clearly stated. Podcast: Invoice per episode, include ad read length and placement. Example: "TikTok sponsored video (dedicated) - $3,000 / Instagram story series (5 stories) - $1,000 / Total campaign: $4,000."`,
+      },
+      {
+        title: 'Payment Terms for Creators',
+        content: `Standard creator payment terms: 50% deposit before content creation, 50% upon posting or delivery. For larger deals ($10,000+): 30% upfront, 40% upon content approval, 30% after posting. Never create content without a deposit. Include late payment fees: "1.5% monthly interest on overdue amounts." Specify kill fees: "If campaign cancelled after content creation, full fee is due." Accept payment via PayPal, bank transfer, or platforms like Lumanu.`,
+      },
+    ],
+    faqs: [
+      {
+        question: 'How do I invoice if a brand wants unlimited usage rights?',
+        answer:
+          'Charge a premium (typically 2-3x the base rate) for unlimited/perpetual usage rights. Invoice as a separate line item: "Perpetual worldwide usage rights: $5,000" in addition to content creation fees. Never give unlimited rights for free.',
+      },
+      {
+        question: 'Should I invoice for content that performs poorly?',
+        answer:
+          'Yes. You invoice for content creation and posting, not performance guarantees (unless specifically contracted). Your invoice covers your work—views, engagement, and conversions depend on many factors outside your control.',
+      },
+      {
+        question: 'How do I handle gifted products in invoicing?',
+        answer:
+          'If you receive products instead of payment, note it: "Content creation fee: $2,000 / Less: Product value received: -$500 / Amount due: $1,500." For pure gifting (no cash), create an invoice at $0 for your records noting the product value received.',
+      },
+      {
+        question: 'What if a brand wants to negotiate my rate?',
+        answer:
+          'Stand firm on your rates, but offer alternatives: reduced deliverables, shorter exclusivity, limited usage rights. Never discount without reducing scope. Document agreed changes in a revised invoice before creating content.',
+      },
+    ],
+  },
+  {
+    slug: 'cleaning-service',
+    title: 'Cleaning Service Invoice Guide: Residential & Commercial',
+    industry: 'Cleaning Services',
+    description:
+      'Professional invoicing guide for cleaning businesses covering residential cleaning, commercial contracts, recurring service billing, and supplies tracking.',
+    excerpt:
+      'Invoice templates and best practices for cleaning businesses. Covers residential, commercial, and recurring cleaning service billing.',
+    keywords: [
+      'cleaning service invoice',
+      'house cleaning invoice template',
+      'commercial cleaning invoice',
+      'janitorial invoice',
+      'maid service invoice',
+      'cleaning business billing',
+    ],
+    publishedDate: '2026-01-20',
+    sections: [
+      {
+        title: 'Residential Cleaning Invoicing',
+        content: `Residential cleaning invoices should detail services performed: "Standard cleaning: Kitchen, bathrooms (2), bedrooms (3), living areas, vacuuming, mopping - $150." List add-on services separately: "Inside refrigerator: +$25 / Inside oven: +$30 / Window cleaning (interior): +$40." Specify square footage pricing if applicable: "Base rate: $0.10/sq ft (1,500 sq ft home = $150)." Include frequency discounts: "Weekly service: 15% discount / Bi-weekly: 10% discount."`,
+      },
+      {
+        title: 'Commercial Cleaning Contracts',
+        content: `Commercial cleaning requires detailed contracts and monthly invoicing. Break down by area: "Office space (5,000 sq ft): $800/month / Restrooms (daily): $200/month / Break room (daily): $150/month / Total: $1,150/month." Specify frequency: "5 days/week" or "3 days/week." Include supplies cost: "Cleaning supplies provided by contractor: $75/month." Invoice on the 1st of each month for the month ahead.`,
+      },
+      {
+        title: 'Recurring Service Billing',
+        content: `For recurring clients, set up automatic monthly invoicing. Include: service date, services performed, next scheduled service. Example: "December 2025 Cleaning Services / Service dates: 12/5, 12/12, 12/19, 12/26 (4 visits) / Standard cleaning x4: $600 / Deep clean (monthly): $100 / Total: $700 / Next service: January 2, 2026." Offer autopay discounts: "5% discount for clients on automatic billing."`,
+      },
+      {
+        title: 'Move-In/Move-Out & Deep Cleaning',
+        content: `Deep cleaning and move-in/move-out services command premium rates. Invoice by room: "Move-out deep clean / Kitchen (appliances, cabinets): $150 / Bathrooms x2: $100 / Bedrooms x3: $90 / Windows (all): $75 / Carpet cleaning: $200 / Total: $615." Include before/after photos for move-out cleanings. Payment terms: Full payment due upon completion or 50% deposit for large jobs.`,
+      },
+      {
+        title: 'Supplies & Equipment Tracking',
+        content: `Track supplies provided versus client-supplied. Invoice: "Supplies used (client-supplied): $0 / Supplies provided (contractor): $35 (toilet paper, paper towels, cleaning products)." For large commercial accounts, invoice supplies separately with receipts: "Supplies purchased for [Client]: $150 (see attached receipts) + 10% handling: $15 / Total supplies: $165." This transparency builds trust.`,
+      },
+    ],
+    faqs: [
+      {
+        question: 'Should I charge per hour or per job for cleaning?',
+        answer:
+          'Per job (flat rate) is generally better—it rewards efficiency and gives clients price certainty. Calculate your flat rate based on estimated time plus supplies. Only use hourly for unusual jobs where you can\'t estimate scope.',
+      },
+      {
+        question: 'How do I invoice for recurring cleaning services?',
+        answer:
+          'Invoice monthly on a consistent date (1st of month). Show all service dates, services performed, and next scheduled date. Offer autopay with a small discount (5%) to ensure consistent payment.',
+      },
+      {
+        question: 'What if a client cancels a scheduled cleaning?',
+        answer:
+          'Include a cancellation policy: "Cancellations within 24 hours: 50% of scheduled service fee." Invoice cancelled appointments: "Scheduled cleaning (cancelled 1/14 - less than 24hr notice): $75 cancellation fee."',
+      },
+      {
+        question: 'How do I handle damage claims?',
+        answer:
+          'Have liability insurance. If damage occurs, document it immediately with photos. Do not admit fault on invoices. File an insurance claim if needed. Your invoice should never include deductions for alleged damage—handle separately.',
+      },
+    ],
+  },
+  {
+    slug: 'personal-trainer',
+    title: 'Personal Trainer Invoice Guide: Sessions, Packages & Online Coaching',
+    industry: 'Fitness & Wellness',
+    description:
+      'Complete invoicing guide for personal trainers and fitness coaches covering session packages, online coaching, nutrition plans, and gym rental fees.',
+    excerpt:
+      'Invoice templates for personal trainers. Covers session packages, online coaching, nutrition planning, and fitness business billing.',
+    keywords: [
+      'personal trainer invoice',
+      'fitness coach invoice template',
+      'gym trainer billing',
+      'online coaching invoice',
+      'fitness business invoice',
+      'personal training package invoice',
+    ],
+    publishedDate: '2026-01-20',
+    sections: [
+      {
+        title: 'Session-Based Invoicing',
+        content: `Invoice individual sessions or packages. Single session: "Personal training session (60 min) - $75." Package pricing: "10-session package: $650 (save $100) / 20-session package: $1,200 (save $300)." Track sessions used: "Sessions remaining: 7 of 10." Invoice packages upfront with payment due before first session. Include expiration: "Package expires 90 days from purchase."`,
+      },
+      {
+        title: 'Monthly Coaching Packages',
+        content: `Monthly packages combine training with ongoing support. Example: "Premium Monthly Package - $500 / Includes: 8 training sessions (2x/week), weekly check-ins, nutrition guidance, workout app access." Invoice on the 1st of each month. Show what's included vs. add-ons: "Additional sessions beyond 8: $60/session." Include cancellation terms: "Monthly packages require 30-day cancellation notice."`,
+      },
+      {
+        title: 'Online Coaching & Remote Training',
+        content: `Online coaching invoicing differs from in-person. Invoice: "Online Coaching Program - $200/month / Includes: Custom workout program (updated monthly), nutrition macro targets, weekly video check-ins, unlimited messaging support." Specify deliverables: "Program delivered via TrueCoach/TrainHeroic app." For one-time program sales: "Custom 12-week transformation program: $400 (includes PDF workout guide, nutrition plan, exercise video library access)."`,
+      },
+      {
+        title: 'Nutrition & Meal Planning Services',
+        content: `Invoice nutrition services separately or as add-ons. "Custom meal plan (4 weeks): $150 / Macro calculation and guidance: $50 / Grocery shopping list: included / Recipe suggestions: included." For ongoing nutrition coaching: "Monthly nutrition coaching: $100/month (weekly macro adjustments, food logging review, bi-weekly calls)." Note: Include disclaimer about not being a registered dietitian if applicable.`,
+      },
+      {
+        title: 'Facility & Equipment Fees',
+        content: `If you rent gym space or provide equipment, include these costs. "Training session: $75 / Gym rental fee (per session): $15 / Total: $90." Or bundle it: "Session rate includes facility access at [Gym Name]." For in-home training: "In-home training premium: +$25/session (includes travel and portable equipment)." Invoice equipment purchases separately: "Resistance bands (client purchase): $30."`,
+      },
+    ],
+    faqs: [
+      {
+        question: 'Should I offer refunds on unused sessions?',
+        answer:
+          'Include in your terms: "Session packages are non-refundable but transferable to another person." Or offer partial refunds: "Unused sessions refunded at 50% of package rate." Put this clearly on your invoice terms.',
+      },
+      {
+        question: 'How do I invoice for cancelled sessions?',
+        answer:
+          'Cancellation policy: "24-hour notice required. Late cancellations or no-shows: session deducted from package." Invoice no-shows: "Session #5 (no-show 1/15): deducted from package / Sessions remaining: 5 of 10."',
+      },
+      {
+        question: 'Can I charge for consultation calls?',
+        answer:
+          'Offer a free initial consultation (15-30 min), then charge for extended consultations: "Fitness assessment and goal-setting session (90 min): $100 (credited toward package purchase)." This qualifies leads while compensating your time.',
+      },
+      {
+        question: 'How do I invoice corporate wellness clients?',
+        answer:
+          'Invoice monthly: "Corporate wellness program - [Company Name] / Group sessions (4x/month, up to 15 participants): $800 / Individual assessments (10 employees): $500 / Total: $1,300." Require NET 15 payment terms for corporate clients.',
+      },
+    ],
+  },
+  {
+    slug: 'tutor',
+    title: 'Tutoring Invoice Guide: Private Lessons, Test Prep & Online Teaching',
+    industry: 'Education & Tutoring',
+    description:
+      'Invoicing guide for tutors and educators covering hourly lessons, package deals, test prep courses, and online tutoring platforms.',
+    excerpt:
+      'Invoice templates for tutors and educators. Covers private lessons, test prep, online tutoring, and education business billing.',
+    keywords: [
+      'tutor invoice template',
+      'tutoring invoice',
+      'private lesson invoice',
+      'test prep invoice',
+      'online tutoring billing',
+      'education invoice template',
+    ],
+    publishedDate: '2026-01-20',
+    sections: [
+      {
+        title: 'Hourly & Session-Based Invoicing',
+        content: `Invoice tutoring by the hour or session. "Math tutoring (Algebra II) - 2 hours @ $60/hr = $120." Include subject and level: "SAT Math prep - 1.5 hours @ $80/hr = $120." For sessions: "Chemistry tutoring session (90 min) - $90." Invoice weekly or bi-weekly with dates: "Week of 1/13/26: Mon 1/13 (1 hr), Wed 1/15 (1 hr), Fri 1/17 (1.5 hr) = 3.5 hours @ $60 = $210."`,
+      },
+      {
+        title: 'Package & Prepaid Hours',
+        content: `Offer discounted packages for commitment. "10-hour tutoring package: $550 (save $50)" or "20-hour package: $1,000 (save $200)." Track usage: "Hours used: 7 of 10 / Hours remaining: 3 / Expiration: March 15, 2026." Invoice packages upfront. Include terms: "Unused hours expire after 6 months. Hours are non-refundable but transferable to siblings."`,
+      },
+      {
+        title: 'Test Prep Course Invoicing',
+        content: `Test prep (SAT, ACT, GRE, GMAT) commands premium rates. Invoice course packages: "SAT Prep Course (8 weeks) - $1,200 / Includes: 16 sessions (2x/week), practice tests (4), study materials, score improvement guarantee." Break down: "Instruction (32 hours): $960 / Materials: $150 / Practice tests: $90 / Total: $1,200." For intensive boot camps: "ACT Boot Camp (1 week, 30 hours): $1,500."`,
+      },
+      {
+        title: 'Online Tutoring Invoicing',
+        content: `Online tutoring follows similar pricing with platform notes. "Online tutoring session via Zoom (1 hour): $55." Include technology: "Session includes screen sharing, digital whiteboard, recorded session for review." For asynchronous help: "Homework help (per assignment): $25 / Essay review and feedback: $40." Note platform used on invoice for clarity and records.`,
+      },
+      {
+        title: 'Materials & Resources',
+        content: `Invoice materials separately. "Tutoring materials: / - Workbook (Algebra): $25 / - Practice test booklet: $15 / - Digital resource access (1 year): $30 / Subtotal materials: $70." Or include in package: "Course fee includes all materials ($100 value)." For custom materials: "Custom study guide created for [Student]: $50." Always specify whether materials are included or additional.`,
+      },
+    ],
+    faqs: [
+      {
+        question: 'Should I charge different rates for different subjects?',
+        answer:
+          'Yes, specialized subjects (advanced math, sciences, test prep) command higher rates than general subjects. Invoice clearly: "General homework help: $40/hr" vs "AP Physics tutoring: $70/hr" vs "SAT prep: $80/hr."',
+      },
+      {
+        question: 'How do I invoice for cancelled lessons?',
+        answer:
+          'Policy: "24-hour cancellation notice required. Late cancellations charged 50% of session rate." Invoice: "Scheduled session 1/15 (cancelled same-day): $30 cancellation fee." For packages: "Session deducted from package for no-shows."',
+      },
+      {
+        question: 'Can I charge parents and invoice schools differently?',
+        answer:
+          'Yes. Private clients: Invoice parents directly. Schools/districts: Invoice the institution with NET 30 terms, include PO number if required, and follow their invoicing procedures. Rates may differ for volume.',
+      },
+      {
+        question: 'How do I handle group tutoring invoices?',
+        answer:
+          'Invoice each family separately: "Group tutoring (3 students) - [Student Name] share: $35/session." Or invoice one family if siblings: "Group session (2 siblings): $80 (vs $120 for individual sessions)."',
+      },
+    ],
+  },
+  {
+    slug: 'landscaping',
+    title: 'Landscaping Invoice Guide: Lawn Care, Design & Seasonal Services',
+    industry: 'Landscaping & Lawn Care',
+    description:
+      'Complete invoicing guide for landscapers covering lawn maintenance, landscape design, hardscaping, seasonal services, and materials markup.',
+    excerpt:
+      'Invoice templates for landscaping businesses. Covers lawn care, landscape design, hardscaping, and seasonal service billing.',
+    keywords: [
+      'landscaping invoice',
+      'lawn care invoice template',
+      'landscape design invoice',
+      'hardscape invoice',
+      'lawn maintenance billing',
+      'landscaper invoice template',
+    ],
+    publishedDate: '2026-01-20',
+    sections: [
+      {
+        title: 'Lawn Maintenance Invoicing',
+        content: `Regular lawn maintenance invoicing should detail all services. "Weekly Lawn Maintenance - $65 / Includes: Mowing, edging, blowing, weed trimming." Invoice monthly: "January 2026 lawn care (4 visits): $260." List each visit date. For larger properties: "Lawn maintenance (1+ acre): $150/visit." Include seasonal adjustments: "Winter rate (Nov-Feb): $45/visit (reduced mowing frequency)."`,
+      },
+      {
+        title: 'Landscape Design & Installation',
+        content: `Design projects require detailed estimates and progress billing. "Landscape Design Package - $2,500 / Includes: Site survey, concept design (2 options), final design with plant list, installation drawings." Installation invoice: "Front yard renovation / Plants and materials: $3,500 / Labor (40 hours @ $50): $2,000 / Equipment rental: $300 / Total: $5,800." Invoice 50% deposit, 50% upon completion.`,
+      },
+      {
+        title: 'Hardscaping & Construction',
+        content: `Hardscape projects (patios, retaining walls, walkways) invoice by project. "Paver patio installation (400 sq ft) / Materials (pavers, sand, gravel): $2,400 / Labor: $2,800 / Equipment: $400 / Total: $5,600." Progress billing: "Deposit (30%): $1,680 / Midpoint (40%): $2,240 / Completion (30%): $1,680." Include material specifications: "Belgard Cambridge Cobble pavers, Autumn blend."`,
+      },
+      {
+        title: 'Seasonal Services',
+        content: `Invoice seasonal services separately. "Spring cleanup: $250 / Includes: Debris removal, bed edging, mulch prep, pruning." "Fall cleanup: $300 / Leaf removal (3 visits), bed prep, winterizing." "Snow removal (per visit): $75 / Salting: +$25." For seasonal contracts: "Winter snow removal contract (Nov-Mar): $500/month (unlimited visits)." Invoice monthly during season.`,
+      },
+      {
+        title: 'Materials Markup & Pass-Through',
+        content: `Standard landscaping markup on materials is 15-25%. Invoice: "Materials / Mulch (10 yards @ $35): $350 / Plants (per attached list): $800 / Subtotal materials: $1,150 / Markup (20%): $230 / Total materials: $1,380." Or use flat delivery fees: "Materials (at cost): $1,150 / Delivery and handling: $150 / Total: $1,300." Include receipts for transparency if clients request.`,
+      },
+    ],
+    faqs: [
+      {
+        question: 'Should I charge per visit or monthly for lawn care?',
+        answer:
+          'Monthly billing is easier for both parties. Calculate: visits per month × per-visit rate = monthly rate. Invoice the same amount monthly for predictability. Adjust seasonally if service frequency changes (less mowing in winter).',
+      },
+      {
+        question: 'How do I invoice for extra services during regular visits?',
+        answer:
+          'List add-ons separately: "Regular maintenance: $65 / Additional service: Hedge trimming: +$45 / Total this visit: $110." Or invoice add-ons monthly: "Extra services (January): Hedge trimming (1/15): $45, Leaf cleanup (1/22): $30 / Total extras: $75."',
+      },
+      {
+        question: 'What if weather prevents completing scheduled work?',
+        answer:
+          'Include in terms: "Weather delays may shift scheduled service to next available day." Don\'t invoice for skipped visits due to weather—include a credit or adjust monthly total. "Scheduled visits: 4 / Completed: 3 (1 weather delay) / Adjusted invoice: $195."',
+      },
+      {
+        question: 'How do I handle material price increases mid-project?',
+        answer:
+          'Include clause: "Material prices subject to change. Quotes valid for 30 days." If prices increase: "Original mulch quote: $350 / Current price: $420 / Difference: $70 (see attached supplier invoice)." Get client approval before proceeding with price increases.',
+      },
+    ],
+  },
+  {
+    slug: 'photographer',
+    title: 'Photography Invoice Guide: Sessions, Events & Licensing',
+    industry: 'Photography',
+    description:
+      'Professional invoicing guide for photographers covering portrait sessions, event photography, commercial licensing, prints, and album sales.',
+    excerpt:
+      'Invoice templates for photographers. Covers portrait sessions, weddings, commercial shoots, licensing fees, and print sales.',
+    keywords: [
+      'photography invoice',
+      'photographer invoice template',
+      'wedding photography invoice',
+      'portrait session invoice',
+      'commercial photography billing',
+      'photo licensing invoice',
+    ],
+    publishedDate: '2026-01-20',
+    sections: [
+      {
+        title: 'Portrait Session Invoicing',
+        content: `Portrait session invoices include session fee and deliverables. "Family Portrait Session - $350 / Includes: 1-hour session, 2 outfit changes, 30 edited digital images, online gallery." Add-ons: "Additional edited images (10): +$75 / Extended session (30 min): +$100 / Second location: +$75." Invoice 50% retainer to book, 50% before gallery delivery. Specify: "Digital images delivered via online gallery within 2 weeks."`,
+      },
+      {
+        title: 'Event & Wedding Photography',
+        content: `Wedding/event packages require detailed breakdown. "Wedding Photography Package - $3,500 / Coverage: 8 hours / Second shooter: included / Engagement session: included / Deliverables: 500+ edited images, online gallery, print release." Payment schedule: "Retainer (25%): $875 due at booking / Midpoint (25%): $875 due 60 days before / Balance (50%): $1,750 due 14 days before event." Include overtime: "Additional coverage: $350/hour."`,
+      },
+      {
+        title: 'Commercial & Licensing Fees',
+        content: `Commercial photography requires licensing terms. "Product Photography Session - $1,200 / 15 products, white background, 3 angles each / Usage: Client website and Amazon listing (1 year)." Additional licensing: "Social media advertising usage: +$500 / Print advertising (regional): +$1,500 / Packaging usage (perpetual): +$2,000." Always specify usage scope: duration, geography, media type. Invoice licensing separately from creation.`,
+      },
+      {
+        title: 'Print & Album Sales',
+        content: `Invoice prints and albums as separate line items. "8x10 print: $45 / 16x20 canvas: $250 / Wedding album (30 pages, 12x12): $800." Include print markup (typically 2-3x cost). "Premium prints pricing includes professional printing, quality guarantee, and shipping." For album design: "Album design fee: $200 / Album production: $600 / Total: $800." Require payment before ordering prints/albums.`,
+      },
+      {
+        title: 'Travel & Expenses',
+        content: `Invoice travel for destination work. "Destination wedding (Miami) / Travel fee: $500 / Airfare: $350 (receipt attached) / Hotel (2 nights): $300 / Rental car: $150 / Travel subtotal: $1,300." For local travel: "Locations beyond 25 miles: $0.65/mile." Include per diem for multi-day shoots: "Multi-day shoot per diem: $75/day." Get approval for travel expenses before booking.`,
+      },
+    ],
+    faqs: [
+      {
+        question: 'How much should I charge for image licensing?',
+        answer:
+          'Licensing depends on usage scope. Web only (1 year): 25-50% of session fee. Social media ads: 50-100% of session fee. Print advertising: 100-200%. Perpetual/unlimited: 200-300%. Always specify exactly how images can be used.',
+      },
+      {
+        question: 'What if a client wants RAW files?',
+        answer:
+          'RAW files are typically not included. If requested, charge a premium: "RAW file delivery: +$500 (includes all unedited files)." Note: "RAW files provided as-is. Client assumes responsibility for editing and color correction."',
+      },
+      {
+        question: 'Should I offer payment plans for weddings?',
+        answer:
+          'Yes, payment plans help book larger packages. Example: "4-payment plan: 25% at booking, 25% at 6 months, 25% at 2 months, 25% at 2 weeks." Invoice each payment separately with due dates clearly marked.',
+      },
+      {
+        question: 'How do I invoice if a session runs overtime?',
+        answer:
+          'Include in contract: "Sessions exceeding scheduled time billed at $X per 30 minutes." Invoice: "Portrait session (1 hour): $350 / Overtime (30 min): +$75 / Total: $425." Communicate overtime charges during the session.',
+      },
+    ],
+  },
+];
+
 export function getGuideBySlug(slug: string): Guide | undefined {
   return guides.find((guide) => guide.slug === slug);
 }
