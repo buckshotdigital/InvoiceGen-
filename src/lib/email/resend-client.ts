@@ -8,8 +8,8 @@ if (!resendApiKey) {
 
 export const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
-// Default from email (verified domain - must use 'send' subdomain per Resend DNS config)
-const DEFAULT_FROM_EMAIL = 'invoices@send.bdsalesinc.ca';
+// Default from email (verified domain)
+const DEFAULT_FROM_EMAIL = 'invoices@bdsalesinc.ca';
 
 /**
  * Send an email reminder using Resend

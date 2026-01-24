@@ -53,7 +53,7 @@ describe('sendReminderEmail', () => {
 
       expect(mockSend).toHaveBeenCalledWith(
         expect.objectContaining({
-          from: 'My Business <invoices@send.bdsalesinc.ca>',
+          from: 'My Business <invoices@bdsalesinc.ca>',
           to: 'client@example.com',
           replyTo: 'business@mybusiness.com',
           subject: 'Invoice Payment Reminder',
@@ -222,7 +222,7 @@ describe('sendReminderEmail', () => {
       // Should use default domain
       expect(mockSend).toHaveBeenCalledWith(
         expect.objectContaining({
-          from: 'Business <invoices@send.bdsalesinc.ca>',
+          from: 'Business <invoices@bdsalesinc.ca>',
           replyTo: 'reply@business.com',
         })
       );
