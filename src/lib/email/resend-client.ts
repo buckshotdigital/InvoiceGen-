@@ -59,11 +59,16 @@ export async function sendReminderEmail(
       replyTo?: string;
       subject: string;
       html: string;
+      headers?: Record<string, string>;
     } = {
       from: `${businessName} <${fromEmail}>`,
       to: toEmail,
       subject,
       html,
+      headers: {
+        'List-Unsubscribe': `<mailto:unsubscribe@bdsalesinc.ca?subject=Unsubscribe>`,
+        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+      },
     };
 
     // Only add replyTo if not using custom domain
