@@ -451,25 +451,25 @@ export default function DashboardPage() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 table-fixed">
+              <table className="w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="w-24 px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                       Invoice
                     </th>
-                    <th className="w-32 px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                       Client
                     </th>
-                    <th className="w-28 px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                       Due Date
                     </th>
-                    <th className="w-24 px-3 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">
                       Amount
                     </th>
-                    <th className="w-28 px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="w-28 px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider hidden lg:table-cell">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider hidden lg:table-cell">
                       Reminded
                     </th>
                     <th className="px-3 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">
@@ -492,8 +492,8 @@ export default function DashboardPage() {
                           <div className="text-sm font-medium text-gray-900">{invoice.invoiceNumber}</div>
                         </td>
                         <td className="px-3 py-3">
-                          <div className="text-sm text-gray-900 truncate max-w-[120px]">{invoice.toName}</div>
-                          <div className="text-xs text-gray-500 truncate max-w-[120px]">{invoice.toEmail}</div>
+                          <div className="text-sm text-gray-900">{invoice.toName}</div>
+                          <div className="text-xs text-gray-500">{invoice.toEmail}</div>
                         </td>
                         <td className="px-3 py-3 whitespace-nowrap">
                           <div className="text-sm text-gray-900">{formatDate(invoice.dueDate)}</div>
