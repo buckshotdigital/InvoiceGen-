@@ -9,7 +9,7 @@ import ReminderHistoryModal from '@/components/ReminderHistoryModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToastContext } from '@/contexts/ToastContext';
 import { useInvoices } from '@/hooks/useInvoices';
-import { deleteInvoice } from '@/lib/api/invoices';
+import { deleteInvoice, markInvoiceAsPaid } from '@/lib/api/invoices';
 import { supabase } from '@/lib/supabase/client';
 import { useSettings } from '@/hooks/useSettings';
 import { Invoice, CURRENCIES, UserSettings } from '@/types/invoice';
@@ -39,6 +39,32 @@ export default function DashboardPage() {
   const [invoiceToDelete, setInvoiceToDelete] = useState<Invoice | null>(null);
   const [isDeleteConfirming, setIsDeleteConfirming] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [markingPaidId, setMarkingPaidId] = useState<string | null>(null);
+
+  const handleMarkAsPaid = async (invoice: Invoice) => {
+    if (!user) return;
+
+    setMarkingPaidId(invoice.id);
+    try {
+      const result = await markInvoiceAsPaid(user.id, invoice.id);
+      if (result) {
+        // Update the invoice in the local state
+        setInvoices(prev => prev.map(inv =>
+          inv.id === invoice.id ? { ...inv, isPaid: true } : inv
+        ));
+        // Refresh metrics
+        loadDashboard();
+        showSuccess(`Invoice ${invoice.invoiceNumber} marked as paid`);
+      } else {
+        showError('Failed to mark invoice as paid');
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to mark invoice as paid';
+      showError(message);
+    } finally {
+      setMarkingPaidId(null);
+    }
+  };
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -530,12 +556,21 @@ export default function DashboardPage() {
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <div className="flex gap-2 justify-end">
                             {!invoice.isPaid && (
-                              <button
-                                onClick={() => handleOpenReminderModal(invoice)}
-                                className="text-blue-600 hover:text-blue-700 font-medium"
-                              >
-                                Send Reminder
-                              </button>
+                              <>
+                                <button
+                                  onClick={() => handleMarkAsPaid(invoice)}
+                                  disabled={markingPaidId === invoice.id}
+                                  className="text-green-600 hover:text-green-700 font-medium disabled:opacity-50"
+                                >
+                                  {markingPaidId === invoice.id ? 'Marking...' : 'Mark Paid'}
+                                </button>
+                                <button
+                                  onClick={() => handleOpenReminderModal(invoice)}
+                                  className="text-blue-600 hover:text-blue-700 font-medium"
+                                >
+                                  Remind
+                                </button>
+                              </>
                             )}
                             <Link
                               href={`/create?invoiceId=${invoice.id}`}
