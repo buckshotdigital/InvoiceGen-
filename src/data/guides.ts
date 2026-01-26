@@ -394,8 +394,6 @@ export const guides: Guide[] = [
       },
     ],
   },
-];
-
   {
     slug: 'digital-creator',
     title: 'Invoice Guide for Digital Creators & Content Creators',
