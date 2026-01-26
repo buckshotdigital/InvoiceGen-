@@ -5,6 +5,7 @@ import { OrganizationSchema } from '@/components/schema/OrganizationSchema';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ToastProvider } from '@/contexts/ToastContext';
 import { ToastManager } from '@/components/ToastManager';
+import { PageTracker } from '@/components/PageTracker';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -172,7 +173,10 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ToastProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            {children}
+            <PageTracker />
+          </AuthProvider>
           <ToastManager />
         </ToastProvider>
       </body>
