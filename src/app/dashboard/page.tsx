@@ -451,28 +451,28 @@ export default function DashboardPage() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full divide-y divide-gray-200">
+              <table className="min-w-full divide-y divide-gray-200 whitespace-nowrap">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider whitespace-nowrap">
                       Invoice
                     </th>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider w-full">
                       Client
                     </th>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider whitespace-nowrap">
                       Due Date
                     </th>
-                    <th className="px-3 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider whitespace-nowrap">
                       Amount
                     </th>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider whitespace-nowrap">
                       Status
                     </th>
-                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider hidden lg:table-cell">
+                    <th className="px-3 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider whitespace-nowrap hidden lg:table-cell">
                       Reminded
                     </th>
-                    <th className="px-3 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider whitespace-nowrap">
                       Actions
                     </th>
                   </tr>
