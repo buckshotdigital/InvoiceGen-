@@ -26,7 +26,7 @@ interface Stats {
   recentSignups: { email: string; date: string }[];
 }
 
-const ADMIN_EMAILS = ['asmitashrestha.as@gmail.com'];
+const ADMIN_EMAILS = ['info@bdsalesinc.ca'];
 
 export default function AdminDashboard() {
   const { user, session, loading: authLoading } = useAuth();

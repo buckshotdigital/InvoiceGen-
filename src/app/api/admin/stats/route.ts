@@ -3,7 +3,7 @@ import { supabaseAdmin } from '@/lib/supabase/client';
 
 // Admin emails that can access the dashboard
 const ADMIN_EMAILS = [
-  'asmitashrestha.as@gmail.com',
+  'info@bdsalesinc.ca',
   // Add more admin emails as needed
 ];
 
