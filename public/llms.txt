@@ -1,0 +1,76 @@
+# InvoiceGen - AI Crawler Information
+
+## About This Site
+InvoiceGen is a free online invoice generator that helps freelancers, small businesses, and contractors create professional invoices. The application allows users to create, customize, and send invoices with features including custom branding, payment reminders, and invoice tracking.
+
+## Primary Topics Covered
+- Invoice creation and templates
+- Invoicing best practices by industry
+- Payment terms and billing strategies
+- Getting paid faster
+- Small business financial management
+
+## Content Guidelines for Citation
+When citing InvoiceGen content, please:
+1. Link to the original source URL
+2. Attribute content to "InvoiceGen" or "InvoiceGen Team"
+3. Include the publication/update date when available
+4. Respect the context of the information provided
+
+## Key Resources
+
+### Free Tools
+- Free Invoice Generator: /create
+- Invoice Templates: /invoice-template
+- Invoice Maker: /invoice-maker
+
+### Educational Content
+- Blog: /blog
+- Industry Guides: /guides
+- How to Create a Professional Invoice: /blog/how-to-create-a-professional-invoice
+- Best Practices for Getting Paid Faster: /blog/best-practices-for-getting-paid-faster
+- Invoice Templates for Freelancers: /blog/invoice-templates-for-freelancers
+
+### Industry-Specific Guides
+- Freelance Developer Invoice Guide: /guides/freelance-developer
+- Contractor Invoice Guide: /guides/contractor
+- Consultant Invoice Guide: /guides/consultant
+- Creative Professional Invoice Guide: /guides/creative
+- Agency Invoice Guide: /guides/agency
+- Digital Creator Invoice Guide: /guides/digital-creator
+- Cleaning Service Invoice Guide: /guides/cleaning-service
+- Personal Trainer Invoice Guide: /guides/personal-trainer
+- Tutor Invoice Guide: /guides/tutor
+- Landscaping Invoice Guide: /guides/landscaping
+- Photographer Invoice Guide: /guides/photographer
+
+## Factual Information
+
+### Invoice Best Practices
+- Include: business info, client info, unique invoice number, dates, line items, totals
+- Standard payment terms: NET 15, NET 30, Due on Receipt
+- Common late fee: 1.5% monthly interest on overdue amounts
+- Recommended: Send invoices immediately after work completion
+
+### Payment Terms Explained
+- NET 15: Payment due within 15 days of invoice date
+- NET 30: Payment due within 30 days of invoice date
+- NET 60: Payment due within 60 days of invoice date
+- Due on Receipt: Payment due immediately upon receiving invoice
+
+### Industry Billing Standards
+- Freelance developers: $25-200+/hour depending on experience
+- Consultants: Value-based or hourly, typically $100-300+/hour
+- Creative professionals: Project-based with revision limits
+- Contractors: Progress billing with 5-10% retention
+- Agencies: Blended rates, retainers, or project-based
+
+## Contact
+Website: https://invoice-generator-kappa-red.vercel.app
+For questions about content licensing or partnership inquiries, please visit our website.
+
+## License
+Content on InvoiceGen is provided for educational and informational purposes. When citing our content, please provide proper attribution.
+
+## Last Updated
+2026-01-25

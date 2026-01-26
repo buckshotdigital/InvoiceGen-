@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import { guides, getGuideBySlug } from '@/data/guides';
 import { ArticleSchema } from '@/components/schema/ArticleSchema';
 import { BreadcrumbSchema } from '@/components/schema/BreadcrumbSchema';
+import { FAQSchema } from '@/components/schema/FAQSchema';
 
 interface PageProps {
   params: Promise<{ industry: string }>;
@@ -69,6 +70,9 @@ export default async function GuidePage({ params }: PageProps) {
           { name: guide.title, url: `https://invoice-generator-kappa-red.vercel.app/guides/${guide.slug}` },
         ]}
       />
+      {guide.faqs && guide.faqs.length > 0 && (
+        <FAQSchema faqs={guide.faqs} />
+      )}
       <Header />
 
       <main className="max-w-3xl mx-auto px-4 py-16">
@@ -245,38 +249,53 @@ export default async function GuidePage({ params }: PageProps) {
               Frequently Asked Questions
             </h2>
             <dl className="space-y-6">
-              <div>
-                <dt className="font-semibold text-gray-900 mb-2">
-                  How often should I send invoices?
-                </dt>
-                <dd className="text-gray-600">
-                  Send invoices promptly after completing work or on the agreed schedule. For ongoing projects, send invoices at regular intervals (weekly, bi-weekly, or monthly) as specified in your contract.
-                </dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-gray-900 mb-2">
-                  What payment terms should I use?
-                </dt>
-                <dd className="text-gray-600">
-                  Common payment terms include NET 30 (payment due within 30 days), NET 60 (60 days), or Due on Receipt (immediate payment). Choose based on your industry standards and client agreements.
-                </dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-gray-900 mb-2">
-                  How do I handle late payments?
-                </dt>
-                <dd className="text-gray-600">
-                  Include late payment terms in your invoices (e.g., 1.5% monthly interest on overdue amounts). Follow up politely after the due date and consider offering early payment discounts.
-                </dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-gray-900 mb-2">
-                  Should I include my tax ID?
-                </dt>
-                <dd className="text-gray-600">
-                  Yes, include your business tax ID (EIN, VAT number, or similar) on all invoices. This is required for accounting and may be needed for client tax deductions.
-                </dd>
-              </div>
+              {guide.faqs && guide.faqs.length > 0 ? (
+                guide.faqs.map((faq, index) => (
+                  <div key={index}>
+                    <dt className="font-semibold text-gray-900 mb-2">
+                      {faq.question}
+                    </dt>
+                    <dd className="text-gray-600">
+                      {faq.answer}
+                    </dd>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div>
+                    <dt className="font-semibold text-gray-900 mb-2">
+                      How often should I send invoices?
+                    </dt>
+                    <dd className="text-gray-600">
+                      Send invoices promptly after completing work or on the agreed schedule. For ongoing projects, send invoices at regular intervals (weekly, bi-weekly, or monthly) as specified in your contract.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="font-semibold text-gray-900 mb-2">
+                      What payment terms should I use?
+                    </dt>
+                    <dd className="text-gray-600">
+                      Common payment terms include NET 30 (payment due within 30 days), NET 60 (60 days), or Due on Receipt (immediate payment). Choose based on your industry standards and client agreements.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="font-semibold text-gray-900 mb-2">
+                      How do I handle late payments?
+                    </dt>
+                    <dd className="text-gray-600">
+                      Include late payment terms in your invoices (e.g., 1.5% monthly interest on overdue amounts). Follow up politely after the due date and consider offering early payment discounts.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="font-semibold text-gray-900 mb-2">
+                      Should I include my tax ID?
+                    </dt>
+                    <dd className="text-gray-600">
+                      Yes, include your business tax ID (EIN, VAT number, or similar) on all invoices. This is required for accounting and may be needed for client tax deductions.
+                    </dd>
+                  </div>
+                </>
+              )}
             </dl>
           </div>
 

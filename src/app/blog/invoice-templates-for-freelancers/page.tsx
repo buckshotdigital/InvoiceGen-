@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import { ArticleSchema } from '@/components/schema/ArticleSchema';
 import { BreadcrumbSchema } from '@/components/schema/BreadcrumbSchema';
+import { FAQSchema } from '@/components/schema/FAQSchema';
 
 export const metadata: Metadata = {
   title: 'Invoice Templates for Freelancers: Hourly, Project & Retainer | InvoiceGen',
@@ -34,6 +35,30 @@ export default function InvoiceTemplatesFreelancersPage() {
           { name: "Home", url: "https://invoice-generator-kappa-red.vercel.app" },
           { name: "Blog", url: "https://invoice-generator-kappa-red.vercel.app/blog" },
           { name: "Invoice Templates for Freelancers", url: "https://invoice-generator-kappa-red.vercel.app/blog/invoice-templates-for-freelancers" },
+        ]}
+      />
+      <FAQSchema
+        faqs={[
+          {
+            question: "What is the best invoice format for hourly work?",
+            answer: "For hourly work, use an invoice with columns for Description, Hours, Rate, and Amount. Track hours daily and break down work into specific tasks (e.g., 'Website Development - 20 hours @ $100/hr'). Invoice weekly or bi-weekly with Net 15 or Net 30 terms."
+          },
+          {
+            question: "How should I invoice for fixed-price projects?",
+            answer: "For fixed-price projects, list the project name with a brief description of deliverables and a single total amount. Common terms are 50% upfront and 50% on completion. Always include a detailed scope of what's delivered to avoid confusion."
+          },
+          {
+            question: "What is a retainer invoice and when should I use it?",
+            answer: "A retainer invoice is for recurring monthly payments for ongoing work. Invoice on the 1st of each month, paid in advance. Include the service period and description of services covered. Retainers are ideal for long-term clients needing consistent support."
+          },
+          {
+            question: "What is milestone billing and how does it work?",
+            answer: "Milestone billing breaks large projects into phases with payment due at each milestone. For example: 25% at project start, 25% at design completion, 25% at development, 25% at launch. This reduces risk for both parties on big projects."
+          },
+          {
+            question: "What late fee should I include on freelance invoices?",
+            answer: "Common late fee options include: 1.5% monthly interest on overdue amounts, a flat $25 late fee after 30 days, or stating that accounts over 60 days may have work paused. Choose what works for your business and actually enforce it."
+          }
         ]}
       />
       <Header />

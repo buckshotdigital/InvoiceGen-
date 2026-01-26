@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import { ArticleSchema } from '@/components/schema/ArticleSchema';
 import { BreadcrumbSchema } from '@/components/schema/BreadcrumbSchema';
+import { FAQSchema } from '@/components/schema/FAQSchema';
 
 export const metadata: Metadata = {
   title: 'Best Practices for Getting Paid Faster | InvoiceGen',
@@ -34,6 +35,30 @@ export default function GetPaidFasterPage() {
           { name: "Home", url: "https://invoice-generator-kappa-red.vercel.app" },
           { name: "Blog", url: "https://invoice-generator-kappa-red.vercel.app/blog" },
           { name: "Best Practices for Getting Paid Faster", url: "https://invoice-generator-kappa-red.vercel.app/blog/best-practices-for-getting-paid-faster" },
+        ]}
+      />
+      <FAQSchema
+        faqs={[
+          {
+            question: "When should I send my invoice?",
+            answer: "Send your invoice immediately after completing the work - ideally the same day. Research shows invoices sent within 24 hours of project completion are paid 1.5x faster than those sent a week later."
+          },
+          {
+            question: "What payment terms should I use for invoices?",
+            answer: "Common payment terms are Due on Receipt (immediate), Net 7 (7 days), Net 15 (15 days), and Net 30 (30 days). Start with Net 15 instead of Net 30 - many clients pay at the deadline regardless, so shorter terms mean faster payment."
+          },
+          {
+            question: "Should I request a deposit before starting work?",
+            answer: "Yes, for projects over $1,000, request 25-50% upfront. This confirms the client is serious, reduces your risk if the project is cancelled, improves cash flow, and makes the final invoice smaller and easier to pay."
+          },
+          {
+            question: "How do I follow up on overdue invoices?",
+            answer: "Follow a strategic schedule: Day 1 send invoice with thank you, Day 7 check in, on due date send a reminder, Day 7 late send an overdue notice, Day 14+ make a phone call and send a written notice of late fees."
+          },
+          {
+            question: "What is a typical late fee for overdue invoices?",
+            answer: "A common late fee is 1.5% monthly interest on the outstanding balance. Include this policy on every invoice, and actually enforce it - if clients learn there's no consequence for paying late, they'll continue doing so."
+          }
         ]}
       />
       <Header />

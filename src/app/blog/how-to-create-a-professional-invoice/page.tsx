@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import { ArticleSchema } from '@/components/schema/ArticleSchema';
 import { BreadcrumbSchema } from '@/components/schema/BreadcrumbSchema';
+import { HowToSchema } from '@/components/schema/HowToSchema';
+import { FAQSchema } from '@/components/schema/FAQSchema';
 
 export const metadata: Metadata = {
   title: 'How to Create a Professional Invoice (Complete Guide) | InvoiceGen',
@@ -34,6 +36,61 @@ export default function HowToCreateInvoicePage() {
           { name: "Home", url: "https://invoice-generator-kappa-red.vercel.app" },
           { name: "Blog", url: "https://invoice-generator-kappa-red.vercel.app/blog" },
           { name: "How to Create a Professional Invoice", url: "https://invoice-generator-kappa-red.vercel.app/blog/how-to-create-a-professional-invoice" },
+        ]}
+      />
+      <HowToSchema
+        name="How to Create a Professional Invoice"
+        description="Learn how to create professional invoices step-by-step. A complete guide covering what to include, common mistakes to avoid, and payment terms."
+        totalTime="PT15M"
+        steps={[
+          {
+            name: "Add Your Business Details",
+            text: "Start with your business name, address, email, and phone. This is typically at the top of the invoice. If you have a logo, include it to reinforce your brand."
+          },
+          {
+            name: "Add Client Information",
+            text: "Include your client's name or company name and address. This helps with record-keeping and ensures the invoice reaches the right person."
+          },
+          {
+            name: "Create a Unique Invoice Number",
+            text: "Use a consistent numbering system. A common format is INV-YEAR-NUMBER (e.g., INV-2024-0042). This helps with tracking and organization."
+          },
+          {
+            name: "Set Clear Dates",
+            text: "Include the invoice date (when you're sending it) and a due date. Common payment terms are Net 15 (due in 15 days) or Net 30 (due in 30 days)."
+          },
+          {
+            name: "List Your Services or Products",
+            text: "Be specific with descriptions. Instead of 'Design work - $500', try 'Homepage redesign including mobile responsive layout - $500'. Clients appreciate knowing exactly what they're paying for."
+          },
+          {
+            name: "Calculate Totals",
+            text: "Show the subtotal, any applicable taxes, and the final total. Double-check your math to avoid errors that could delay payment."
+          }
+        ]}
+      />
+      <FAQSchema
+        faqs={[
+          {
+            question: "What should I include on every invoice?",
+            answer: "Every invoice should include: your business information (name, address, contact), client information, unique invoice number, invoice date and due date, itemized list of services/products with descriptions, quantities and prices, subtotal, taxes if applicable, and total amount due."
+          },
+          {
+            question: "What are the most common invoice payment terms?",
+            answer: "The most common payment terms are NET 30 (payment due within 30 days), NET 15 (due within 15 days), and Due on Receipt (immediate payment). You can also offer early payment discounts like 2/10 NET 30 (2% discount if paid within 10 days)."
+          },
+          {
+            question: "How do I number my invoices?",
+            answer: "Use a consistent sequential numbering system. Common formats include: INV-0001, INV-2024-001, or including client codes like ABC-001. The key is consistency and uniqueness for easy tracking."
+          },
+          {
+            question: "What mistakes delay invoice payments?",
+            answer: "Common mistakes that delay payment include: missing or unclear payment terms, vague service descriptions, incorrect client details, no invoice number, math errors, missing contact information, and sending invoices late after work completion."
+          },
+          {
+            question: "Should I charge late fees on overdue invoices?",
+            answer: "Yes, including late fee terms can encourage timely payment. A common rate is 1.5% monthly interest on overdue amounts. Always state your late fee policy clearly on the invoice and in your contract."
+          }
         ]}
       />
       <Header />

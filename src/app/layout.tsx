@@ -153,6 +153,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <OrganizationSchema />
+        {/* llms.txt for AI crawlers */}
+        <link rel="author" href="/llms.txt" />
         {/* Google Analytics */}
         <Script
           async
