@@ -10,6 +10,30 @@ export interface EmailTemplate {
 }
 
 /**
+ * Get the default message text for a reminder type (for pre-populating the UI)
+ */
+export function getDefaultMessage(invoice: Invoice, reminderType: ReminderType): string {
+  const dueDate = new Date(invoice.dueDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  switch (reminderType) {
+    case 'due_soon':
+      return `Just a friendly reminder that invoice ${invoice.invoiceNumber} is due on ${dueDate}. Please arrange payment at your earliest convenience.`;
+    case 'overdue_1_7':
+      return `This is a reminder that invoice ${invoice.invoiceNumber} is now overdue. Please submit payment at your earliest convenience.`;
+    case 'overdue_8_30':
+      return `Invoice ${invoice.invoiceNumber} is now significantly overdue. Immediate payment is required to avoid further action.`;
+    case 'final_notice':
+      return `This is a FINAL NOTICE regarding invoice ${invoice.invoiceNumber}. Payment must be received immediately to avoid collection proceedings.`;
+    default:
+      return '';
+  }
+}
+
+/**
  * Determine which reminder type should be sent based on invoice status
  */
 export function determineReminderType(invoice: Invoice, businessName: string): ReminderType | null {

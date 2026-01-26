@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Invoice } from '@/types/invoice';
-import { determineReminderType, generateEmailTemplate, ReminderType } from '@/lib/email/templates';
+import { determineReminderType, generateEmailTemplate, getDefaultMessage, ReminderType } from '@/lib/email/templates';
 
 interface SendReminderModalProps {
   invoice: Invoice;
@@ -29,14 +29,25 @@ export default function SendReminderModal({
 }: SendReminderModalProps) {
   const [loading, setSending] = useState(false);
   const [error, setError] = useState('');
-  const [subject, setSubject] = useState('');
-  const [customMessage, setCustomMessage] = useState('');
   const [selectedType, setSelectedType] = useState<ReminderType>('overdue_1_7');
   const [showPreview, setShowPreview] = useState(false);
   const [quota, setQuota] = useState<QuotaInfo | null>(null);
 
-  // Generate initial template
+  // Generate template based on selected type
   const emailTemplate = generateEmailTemplate(invoice, selectedType, businessName, businessEmail);
+  const defaultMessage = getDefaultMessage(invoice, selectedType);
+
+  // Initialize subject and message with defaults
+  const [subject, setSubject] = useState(emailTemplate.subject);
+  const [customMessage, setCustomMessage] = useState(defaultMessage);
+
+  // Update subject and message when reminder type changes
+  useEffect(() => {
+    const template = generateEmailTemplate(invoice, selectedType, businessName, businessEmail);
+    const message = getDefaultMessage(invoice, selectedType);
+    setSubject(template.subject);
+    setCustomMessage(message);
+  }, [selectedType, invoice, businessName, businessEmail]);
 
   if (!isOpen) return null;
 
@@ -170,10 +181,9 @@ export default function SendReminderModal({
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              placeholder={emailTemplate.subject}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500"
             />
-            <p className="mt-1 text-xs text-gray-500">Leave blank to use default subject</p>
+            <p className="mt-1 text-xs text-gray-500">Edit the subject line as needed</p>
           </div>
 
           {/* Email Body */}
@@ -182,12 +192,11 @@ export default function SendReminderModal({
             <textarea
               value={customMessage}
               onChange={(e) => setCustomMessage(e.target.value)}
-              placeholder="Enter your custom message here, or leave blank to use the default template message..."
               rows={4}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 resize-y"
             />
             <p className="mt-1 text-xs text-gray-500">
-              Customize the main message. Leave blank for the default reminder message based on type selected above.
+              Edit the message above. Changes to reminder type will reset to default message.
             </p>
           </div>
 
@@ -217,20 +226,11 @@ export default function SendReminderModal({
             {showPreview && (
               <div className="mt-3 bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <p className="text-xs text-gray-600 font-medium mb-2">Subject:</p>
-                <p className="text-sm text-gray-900 mb-3">{subject || emailTemplate.subject}</p>
+                <p className="text-sm text-gray-900 mb-3">{subject}</p>
                 <p className="text-xs text-gray-600 font-medium mb-2">Message:</p>
-                <div className="text-sm text-gray-700 bg-white p-3 rounded border border-gray-200 mb-3">
-                  {customMessage || (
-                    <span className="text-gray-500 italic">Default template message will be used</span>
-                  )}
+                <div className="text-sm text-gray-700 bg-white p-3 rounded border border-gray-200 mb-3 whitespace-pre-wrap">
+                  {customMessage}
                 </div>
-                <p className="text-xs text-gray-600 font-medium mb-2">Full Email Preview:</p>
-                <div
-                  className="text-xs text-gray-700 bg-white p-3 rounded border border-gray-200 max-h-48 overflow-y-auto"
-                  dangerouslySetInnerHTML={{
-                    __html: emailTemplate.html.substring(0, 500) + '...',
-                  }}
-                />
               </div>
             )}
           </div>
