@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { fetchPatient, fetchCallLogs, updatePatient, updateMedication, deleteMedication, deletePatient } from '@/lib/queries';
+import { fetchPatient, fetchCallLogs, updatePatient, updateMedication, deleteMedication, deletePatient, fetchPatientPlans, updatePatientPlan } from '@/lib/queries';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { CallTranscript } from '@/components/call-transcript';
@@ -15,7 +15,7 @@ import { useToast } from '@/components/toast';
 import { formatDate, formatTime, formatDuration } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 import { useState, useCallback } from 'react';
-import { ArrowLeft, Plus, Pencil, Check, X, Pill, Phone, Power, Trash2 } from 'lucide-react';
+import { ArrowLeft, Plus, Pencil, Check, X, Pill, Phone, Power, Trash2, Clock, Heart } from 'lucide-react';
 
 const dayLabels = ['', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -67,6 +67,8 @@ export default function PatientDetailPage() {
   const [savingMed, setSavingMed] = useState(false);
   const [togglingMedId, setTogglingMedId] = useState<string | null>(null);
 
+  const [switchingPlan, setSwitchingPlan] = useState(false);
+
   const { data: patient, isLoading: loadingPatient, refetch: refetchPatient } = useQuery({
     queryKey: ['patient', id],
     queryFn: () => fetchPatient(id),
@@ -76,6 +78,27 @@ export default function PatientDetailPage() {
     queryKey: ['calls', id],
     queryFn: () => fetchCallLogs(id),
   });
+
+  const { data: patientPlans, refetch: refetchPlans } = useQuery({
+    queryKey: ['patient-plans'],
+    queryFn: fetchPatientPlans,
+  });
+
+  const currentPlan = patientPlans?.find((pp: any) => pp.patient_id === id && pp.is_active)?.plan_id || 'basic';
+
+  const handlePlanChange = useCallback(async (planId: string) => {
+    if (planId === currentPlan) return;
+    setSwitchingPlan(true);
+    try {
+      await updatePatientPlan(id, planId);
+      await refetchPlans();
+      toast(`Switched to ${planId === 'companionship' ? 'Companionship' : 'Basic'} plan`, 'success');
+    } catch (e) {
+      toast('Failed to switch plan: ' + (e as Error).message, 'error');
+    } finally {
+      setSwitchingPlan(false);
+    }
+  }, [id, currentPlan, refetchPlans, toast]);
 
   const startEditMed = useCallback((med: any) => {
     setEditingMedId(med.id);
@@ -310,6 +333,74 @@ export default function PatientDetailPage() {
             )}
           </div>
         )}
+      </div>
+
+      {/* Subscription Plan */}
+      <div>
+        <h2 className="font-semibold mb-4">Subscription Plan</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Basic Plan Card */}
+          <button
+            onClick={() => handlePlanChange('basic')}
+            disabled={switchingPlan}
+            className={cn(
+              'rounded-2xl p-5 text-left transition-all border-2',
+              currentPlan === 'basic'
+                ? 'border-primary bg-primary/5 shadow-soft-lg'
+                : 'border-border bg-white dark:bg-card shadow-soft hover:border-primary/50'
+            )}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className={cn(
+                'w-10 h-10 rounded-full flex items-center justify-center',
+                currentPlan === 'basic' ? 'bg-primary/10' : 'bg-muted'
+              )}>
+                <Clock className={cn('w-5 h-5', currentPlan === 'basic' ? 'text-primary' : 'text-muted-foreground')} />
+              </div>
+              <div>
+                <p className="font-semibold">Basic</p>
+                <p className="text-sm text-muted-foreground">$49/month</p>
+              </div>
+              {currentPlan === 'basic' && (
+                <span className="ml-auto text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">Current</span>
+              )}
+            </div>
+            <p className="text-sm text-muted-foreground">
+              5-minute medication reminder calls. Enough for reminders plus a brief chat.
+            </p>
+          </button>
+
+          {/* Companionship Plan Card */}
+          <button
+            onClick={() => handlePlanChange('companionship')}
+            disabled={switchingPlan}
+            className={cn(
+              'rounded-2xl p-5 text-left transition-all border-2',
+              currentPlan === 'companionship'
+                ? 'border-primary bg-primary/5 shadow-soft-lg'
+                : 'border-border bg-white dark:bg-card shadow-soft hover:border-primary/50'
+            )}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className={cn(
+                'w-10 h-10 rounded-full flex items-center justify-center',
+                currentPlan === 'companionship' ? 'bg-primary/10' : 'bg-muted'
+              )}>
+                <Heart className={cn('w-5 h-5', currentPlan === 'companionship' ? 'text-primary' : 'text-muted-foreground')} />
+              </div>
+              <div>
+                <p className="font-semibold">Companionship</p>
+                <p className="text-sm text-muted-foreground">$49/month + credits</p>
+              </div>
+              {currentPlan === 'companionship' && (
+                <span className="ml-auto text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">Current</span>
+              )}
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Up to 30-minute calls with extended companionship conversation. First 3 minutes free per call, then uses credits.
+            </p>
+          </button>
+        </div>
       </div>
 
       {/* Medications */}

@@ -7,9 +7,9 @@ import { StatusBadge, getCallStatusVariant, getCallStatusLabel } from '@/compone
 import { Avatar } from '@/components/avatar';
 import { EmptyState } from '@/components/empty-state';
 import { DashboardSkeleton } from '@/components/skeletons';
-import { relativeTime, getGreeting } from '@/lib/utils';
+import { relativeTime, getGreeting, cn } from '@/lib/utils';
 import Link from 'next/link';
-import { AlertTriangle, Users, CheckCircle2, ChevronRight, Pill, RefreshCw } from 'lucide-react';
+import { AlertTriangle, Users, CheckCircle2, ChevronRight, Pill, RefreshCw, Coins } from 'lucide-react';
 
 interface DashboardStats {
   today: { taken: number; pending: number; missed: number; unreached: number };
@@ -17,6 +17,7 @@ interface DashboardStats {
   weekly_adherence: number;
   recent_calls: Array<any>;
   escalations: Array<any>;
+  credits?: { balance_minutes: number; has_companionship_patients: boolean };
 }
 
 export default function DashboardPage() {
@@ -50,6 +51,8 @@ export default function DashboardPage() {
   const totalMissed = today.missed + today.unreached;
   const allGood = totalMissed === 0 && today.pending === 0;
   const hasCritical = totalMissed >= 3;
+  const credits = stats.credits;
+  const lowBalance = credits?.has_companionship_patients && (credits?.balance_minutes ?? 0) <= 10;
 
   return (
     <div className="space-y-8">
@@ -90,6 +93,22 @@ export default function DashboardPage() {
         </div>
       ) : null}
 
+      {/* Low credit balance warning */}
+      {lowBalance && (
+        <Link
+          href="/dashboard/credits"
+          className="rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-800/30 p-4 flex items-center justify-between gap-3 animate-fade-in hover:shadow-soft transition-shadow"
+        >
+          <div className="flex items-center gap-3">
+            <Coins className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0" />
+            <p className="text-rose-800 dark:text-rose-300 font-medium text-sm">
+              Low credit balance: {Math.floor(credits?.balance_minutes ?? 0)} minutes remaining. Companionship calls will fall back to 5-minute basic calls.
+            </p>
+          </div>
+          <ChevronRight className="w-5 h-5 text-rose-400 shrink-0" />
+        </Link>
+      )}
+
       {/* Status cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <StatusCard label="Taken" count={today.taken} variant="taken" />
@@ -120,6 +139,32 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Credit balance card */}
+      {credits?.has_companionship_patients && (
+        <Link
+          href="/dashboard/credits"
+          className="rounded-2xl shadow-soft bg-white dark:bg-card p-6 hover:shadow-soft-lg transition-shadow group block"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-semibold">Companionship Credits</h2>
+            <span className="text-sm text-primary group-hover:underline">Manage</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className={cn(
+              'text-3xl font-bold',
+              (credits.balance_minutes ?? 0) > 30
+                ? 'text-emerald-600 dark:text-emerald-400'
+                : (credits.balance_minutes ?? 0) > 10
+                  ? 'text-amber-600 dark:text-amber-400'
+                  : 'text-rose-600 dark:text-rose-400'
+            )}>
+              {Math.floor(credits.balance_minutes ?? 0)}
+            </div>
+            <span className="text-muted-foreground text-sm">minutes remaining</span>
+          </div>
+        </Link>
+      )}
 
       {/* Two-column layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

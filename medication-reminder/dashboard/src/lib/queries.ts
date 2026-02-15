@@ -284,6 +284,99 @@ export async function deletePatient(id: string) {
   if (error) throw error;
 }
 
+// ── Credit & Plan Queries ──
+
+export async function fetchCreditBalance() {
+  const supabase = getSupabase();
+  const { data, error } = await supabase
+    .from('credit_balances')
+    .select('balance_minutes, updated_at')
+    .single();
+
+  if (error && error.code !== 'PGRST116') throw error; // PGRST116 = no rows
+  return data || { balance_minutes: 0, updated_at: null };
+}
+
+export async function fetchCreditUsage(patientId?: string) {
+  const supabase = getSupabase();
+  let query = supabase
+    .from('credit_usage')
+    .select('*, patients(name)')
+    .order('created_at', { ascending: false })
+    .limit(50);
+
+  if (patientId) {
+    query = query.eq('patient_id', patientId);
+  }
+
+  const { data, error } = await query;
+  if (error) throw error;
+  return data;
+}
+
+export async function fetchCreditPurchases() {
+  const supabase = getSupabase();
+  const { data, error } = await supabase
+    .from('credit_purchases')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(20);
+
+  if (error) throw error;
+  return data;
+}
+
+export async function fetchPatientPlans() {
+  const supabase = getSupabase();
+  const { data, error } = await supabase
+    .from('patient_plans')
+    .select('*, patients(name), plans(*)')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data;
+}
+
+export async function updatePatientPlan(patientId: string, planId: string) {
+  const supabase = getSupabase();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  // Get caregiver id
+  const { data: caregiver } = await supabase
+    .from('caregivers')
+    .select('id')
+    .eq('auth_user_id', user.id)
+    .single();
+
+  if (!caregiver) throw new Error('Caregiver profile not found');
+
+  // Deactivate existing plan for this patient
+  await supabase
+    .from('patient_plans')
+    .update({ is_active: false, ended_at: new Date().toISOString() })
+    .eq('patient_id', patientId)
+    .eq('caregiver_id', caregiver.id)
+    .eq('is_active', true);
+
+  // Insert new plan assignment
+  const { error } = await supabase
+    .from('patient_plans')
+    .upsert({
+      patient_id: patientId,
+      caregiver_id: caregiver.id,
+      plan_id: planId,
+      is_active: true,
+      started_at: new Date().toISOString(),
+      ended_at: null,
+    }, {
+      onConflict: 'patient_id,caregiver_id',
+    });
+
+  if (error) throw error;
+}
+
 export async function addMedication(data: {
   patient_id: string;
   name: string;

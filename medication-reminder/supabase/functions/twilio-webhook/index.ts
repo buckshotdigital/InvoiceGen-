@@ -239,17 +239,49 @@ serve(async (req) => {
         .update(updateData)
         .eq('call_sid', callSid);
 
-      // On call completion, trigger post-call processing
+      // On call completion, trigger post-call processing + credit deduction
       if (callStatus === 'completed') {
         // Find the call log for post-processing
         const { data: callLog } = await supabase
           .from('reminder_call_logs')
-          .select('id, patient_id, medication_taken')
+          .select('id, patient_id, medication_taken, duration_seconds')
           .eq('call_sid', callSid)
           .single();
 
         if (callLog) {
           const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+
+          // Credit deduction for companionship plans
+          try {
+            const callDuration = callLog.duration_seconds || (duration ? parseInt(duration) : 0);
+            const { data: planData } = await supabase.rpc('get_patient_plan', {
+              p_patient_id: callLog.patient_id,
+            });
+
+            if (planData && planData.length > 0 && planData[0].plan_id === 'companionship') {
+              const plan = planData[0];
+              const { data: deductResult } = await supabase.rpc('deduct_credits', {
+                p_caregiver_id: plan.caregiver_id,
+                p_patient_id: callLog.patient_id,
+                p_call_log_id: callLog.id,
+                p_call_sid: callSid,
+                p_total_duration_seconds: callDuration,
+                p_free_seconds: plan.free_seconds_per_call,
+              });
+
+              if (deductResult && deductResult.length > 0) {
+                const { minutes_deducted, balance_after } = deductResult[0];
+                console.log(`[twilio-webhook] Credits deducted: ${minutes_deducted} min, balance: ${balance_after} min`);
+
+                // Low balance alert: check if below 20% of last purchase
+                if (balance_after <= 10) {
+                  await sendLowBalanceAlert(plan.caregiver_id, balance_after);
+                }
+              }
+            }
+          } catch (creditErr) {
+            console.error('[twilio-webhook] Credit deduction failed:', creditErr);
+          }
 
           // Trigger post-call summary (non-blocking)
           fetch(`${supabaseUrl}/functions/v1/post-call-summary`, {
@@ -405,6 +437,40 @@ async function sendSmsFallback(patientId: string, medicationId: string) {
     console.log('[twilio-webhook] SMS fallback sent:', result.sid);
   } catch (error) {
     console.error('[twilio-webhook] SMS fallback failed:', error);
+  }
+}
+
+async function sendLowBalanceAlert(caregiverId: string, balanceMinutes: number) {
+  try {
+    const { data: caregiver } = await supabase
+      .from('caregivers')
+      .select('name, phone_number')
+      .eq('id', caregiverId)
+      .single();
+
+    if (!caregiver?.phone_number) return;
+
+    const message = `MedReminder: Your companionship credit balance is low (${Math.floor(balanceMinutes)} minutes remaining). Purchase more credits in your dashboard to keep extended calls active.`;
+
+    await fetch(
+      `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Basic ' + btoa(`${TWILIO_ACCOUNT_SID}:${TWILIO_AUTH_TOKEN}`),
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          To: caregiver.phone_number,
+          From: TWILIO_PHONE_NUMBER,
+          Body: message,
+        }),
+      }
+    );
+
+    console.log('[twilio-webhook] Low balance alert sent to caregiver:', caregiverId);
+  } catch (error) {
+    console.error('[twilio-webhook] Failed to send low balance alert:', error);
   }
 }
 

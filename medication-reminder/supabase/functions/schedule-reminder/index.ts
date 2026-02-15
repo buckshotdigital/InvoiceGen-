@@ -105,6 +105,32 @@ serve(async (req) => {
           .update({ status: 'in_progress' })
           .eq('id', call.id);
 
+        // Look up patient's plan for duration cap
+        let maxDuration = 300; // Default: 5 minutes (basic)
+        try {
+          const { data: planData } = await supabase.rpc('get_patient_plan', {
+            p_patient_id: call.patients.id,
+          });
+          if (planData && planData.length > 0) {
+            const plan = planData[0];
+            if (plan.plan_id === 'companionship') {
+              if (plan.balance_minutes > 0) {
+                // Cap by available credits + free minutes
+                const creditSeconds = Math.floor(plan.balance_minutes * 60);
+                maxDuration = Math.min(plan.max_call_duration_seconds, creditSeconds + plan.free_seconds_per_call);
+              } else {
+                // No credits: fall back to basic duration
+                maxDuration = 300;
+              }
+            } else {
+              maxDuration = plan.max_call_duration_seconds;
+            }
+          }
+          console.log(`[schedule-reminder] Plan for ${call.patients.name}: maxDuration=${maxDuration}s`);
+        } catch (planErr) {
+          console.warn('[schedule-reminder] Plan lookup failed, using default 300s:', planErr);
+        }
+
         // Build medication_ids list for multi-med bundling
         const medicationIds = call.medication_ids?.length > 0
           ? call.medication_ids
@@ -119,7 +145,8 @@ serve(async (req) => {
           medicationIds,
           call.patients.name,
           call.medications.name,
-          call.medications.dosage || ''
+          call.medications.dosage || '',
+          maxDuration
         );
 
         // Create call log
@@ -190,7 +217,8 @@ async function initiateCall(
   medicationIds: string[] = [],
   patientName: string = '',
   medicationName: string = '',
-  medicationDosage: string = ''
+  medicationDosage: string = '',
+  maxDuration: number = 300
 ): Promise<{ sid: string }> {
   const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
   const projectRef = supabaseUrl.match(/https:\/\/([^.]+)/)?.[1];
@@ -237,6 +265,7 @@ async function initiateCall(
         StatusCallback: `${webhookBase}/status`,
         StatusCallbackEvent: 'initiated ringing answered completed',
         Timeout: '30',
+        TimeLimit: String(maxDuration),
       }),
     }
   );

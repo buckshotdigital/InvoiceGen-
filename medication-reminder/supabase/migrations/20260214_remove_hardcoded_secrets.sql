@@ -50,7 +50,7 @@ BEGIN
     PERFORM cron.schedule(
       'dispatch-pending-calls',
       '* * * * *',
-      $$
+      $cron$
       SELECT net.http_post(
         url := current_setting('app.supabase_url', true) || '/functions/v1/schedule-reminder',
         headers := jsonb_build_object(
@@ -58,7 +58,7 @@ BEGIN
         ),
         body := '{}'::jsonb
       );
-      $$
+      $cron$
     );
   END IF;
 END
